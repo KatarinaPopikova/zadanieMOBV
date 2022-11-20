@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Zadanie</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login_data">Zadať prihlasovacie údaje</string>
+    <string name="register_data">Zadať údaje pre registráciu</string>
+    <string name="enter_login">Prihlasovacie meno*</string>
+    <string name="enter_password">Heslo*</string>
+    <string name="enter_password_again">Zopakovať heslo*</string>
+    <string name="register">Registrovať sa</string>
+    <string name="login">Prihlásiť sa</string>
 </resources>
