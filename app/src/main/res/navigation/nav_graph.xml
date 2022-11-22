@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/barsListFragment"
+        android:name="sk.stu.fei.mobv.ui.BarsListFragment"
+        android:label="BarsListFragment"
+        tools:layout="@layout/fragment_bars_list" >
+        <action
+            android:id="@+id/action_barsListFragment_to_barDetailFragment"
+            app:destination="@id/barDetailFragment" />
+        <action
+            android:id="@+id/action_barsListFragment_to_tagBarsListFragment"
+            app:destination="@id/tagBarsListFragment" />
+        <action
+            android:id="@+id/action_barsListFragment_to_friendsListFragment"
+            app:destination="@id/friendsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/friendsListFragment"
+        android:name="sk.stu.fei.mobv.ui.FriendsListFragment"
+        android:label="FriendsListFragment"
+        tools:layout="@layout/fragment_friends_list" >
+        <action
+            android:id="@+id/action_friendsListFragment_to_barDetailFragment"
+            app:destination="@id/barDetailFragment" />
+        <action
+            android:id="@+id/action_friendsListFragment_to_addFriendFragment"
+            app:destination="@id/addFriendFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tagBarsListFragment"
+        android:name="sk.stu.fei.mobv.ui.TagBarsListFragment"
+        android:label="TagBarsListFragment"
+        tools:layout="@layout/fragment_tag_bars_list" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="sk.stu.fei.mobv.ui.LoginFragment"
+        android:label="@string/logination"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_barsListFragment"
+            app:destination="@id/barsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFriendFragment"
+        android:name="sk.stu.fei.mobv.ui.AddFriendFragment"
+        android:label="fragment_add_friend"
+        tools:layout="@layout/fragment_add_friend" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="sk.stu.fei.mobv.ui.RegisterFragment"
+        android:label="@string/registration"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_registerFragment_to_barsListFragment"
+            app:destination="@id/barsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/barDetailFragment"
+        android:name="sk.stu.fei.mobv.ui.BarDetailFragment"
+        android:label="BarDetailFragment"
+        tools:layout="@layout/fragment_bar_detail"  />
+</navigation>

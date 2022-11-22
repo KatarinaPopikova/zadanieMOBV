@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="friend"
+            type="sk.stu.fei.mobv.domain.Friend" />
+
+        <variable
+            name="friendsListItemEventListener"
+            type="sk.stu.fei.mobv.ui.adapter.FriendsListItemEventListener" />
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/friend_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:minHeight="64dp"
+        android:onClick="@{() -> friendsListItemEventListener.onClick()}">
+
+        <ImageView
+            android:id="@+id/friend_item_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/friend_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/friend_item_icon"
+            android:maxLines="1"
+            android:paddingTop="16dp"
+            android:paddingEnd="16dp"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/visiting_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/friend_name"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@id/friend_item_icon"
+            android:maxLines="2"
+            android:paddingEnd="16dp"
+            android:textAppearance="?attr/textAppearanceBody2"
+            tools:text="@tools:sample/lorem/random" />
+
+    </RelativeLayout>
+</layout>

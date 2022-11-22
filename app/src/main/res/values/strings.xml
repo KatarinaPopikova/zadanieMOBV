@@ -8,7 +8,9 @@
     <string name="enter_password">Heslo*</string>
     <string name="enter_password_again">Zopakovať heslo*</string>
     <string name="register">Registrovať sa</string>
+    <string name="registration">Registrácia</string>
     <string name="login">Prihlásiť sa</string>
+    <string name="logination">Prihlásenie</string>
     <string name="bar_name">Názov podniku</string>
     <string name="visitor_count">Počet návštevníkov v bare: 3</string>
     <string name="open_gps">Ukáž na mape</string>
@@ -16,6 +18,11 @@
     <string name="add_friend_data">Pridať priateľa</string>
     <string name="enter_friend_login">Zadať prihlasovacie meno priateľa</string>
     <string name="add_friend">Pridať priateľa</string>
+    <string name="show_friends">Zobraziť priateľov</string>
     <string name="friends_list_data">Zoznam priateľov</string>
+    <string name="tag_bar">Pridať sa do podniku</string>
+    <string name="sort_bars_count">Zoradiť podľa počtu ľudí</string>
+    <string name="sort_bars_az">Zoradiť podľa počtu ľudí</string>
+    <string name="sort_bars_distance">Zoradiť podľa počtu ľudí</string>
 
 </resources>

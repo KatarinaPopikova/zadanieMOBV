@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="bar"
+            type="sk.stu.fei.mobv.domain.Bar" />
+
+        <variable
+            name="barsListItemEventListener"
+            type="sk.stu.fei.mobv.ui.adapter.BarsListItemEventListener" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:minHeight="64dp"
+        android:onClick="@{() -> barsListItemEventListener.onClick()}">
+
+        <ImageView
+            android:id="@+id/bar_item_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/bar_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/bar_item_icon"
+            android:maxLines="1"
+            android:paddingTop="16dp"
+            android:paddingEnd="16dp"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            tools:text="@tools:sample/lorem" />
+
+        <TextView
+            android:id="@+id/visitor_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bar_name"
+            android:layout_gravity="center_vertical"
+            android:layout_toEndOf="@id/bar_item_icon"
+            android:maxLines="2"
+            android:paddingEnd="16dp"
+            android:textAppearance="?attr/textAppearanceBody2"
+            tools:text="@tools:sample/lorem/random" />
+
+
+    </RelativeLayout>
+</layout>

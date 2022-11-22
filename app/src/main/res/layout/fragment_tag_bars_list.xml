@@ -4,44 +4,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="thisFragment"
-            type="sk.stu.fei.mobv.ui.FriendsListFragment" />
+
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:onClick="@{() -> thisFragment.goToBarDetailScreen()}"
-            tools:context=".ui.FriendsListFragment">
+            tools:context=".ui.TagBarsListFragment">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/friends_list_view"
+                android:id="@+id/tag_bars_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:padding="16dp"
                 android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager"
-                tools:listitem="@layout/friends_list_item" />
+                tools:listitem="@layout/tag_bars_list_item" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_friend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"
-            android:contentDescription="@string/add_friend"
-            android:onClick="@{() -> thisFragment.goToAddFriendScreen()}"
-            android:src="@drawable/ic_add_friend" />
     </FrameLayout>
 </layout>

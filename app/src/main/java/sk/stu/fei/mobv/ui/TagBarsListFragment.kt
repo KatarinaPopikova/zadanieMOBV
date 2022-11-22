@@ -5,11 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import sk.stu.fei.mobv.databinding.FragmentAddFriendBinding
+import sk.stu.fei.mobv.R
+import sk.stu.fei.mobv.databinding.FragmentTagBarsListBinding
 
-class AddFriendFragment : Fragment() {
-    private var _binding: FragmentAddFriendBinding? = null
-    private val binding get(): FragmentAddFriendBinding = _binding!!
+class TagBarsListFragment : Fragment() {
+    private var _binding: FragmentTagBarsListBinding? = null
+    private val binding get(): FragmentTagBarsListBinding = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,13 +20,14 @@ class AddFriendFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAddFriendBinding.inflate(inflater, container, false)
+        _binding = FragmentTagBarsListBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

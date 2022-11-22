@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.BarsListFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="thisFragment"
+            type="sk.stu.fei.mobv.ui.BarsListFragment" />
+    </data>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:onClick="@{() -> thisFragment.goToBarDetailScreen()}"
+            tools:context=".ui.BarsListFragment">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bars_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:padding="16dp"
+                android:scrollbars="vertical"
+                app:layoutManager="LinearLayoutManager"
+                tools:listitem="@layout/bars_list_item" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/tag_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/tag_bar"
+            android:onClick="@{() -> thisFragment.goToFriendsListScreen()}"
+            android:src="@drawable/ic_tag_bar" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/show_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="80dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/show_friends"
+            android:onClick="@{() -> thisFragment.goToTagBarsListScreen()}"
+            android:src="@drawable/ic_friends" />
+    </FrameLayout>
+</layout>
