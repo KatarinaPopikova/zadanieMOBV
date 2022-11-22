@@ -9,4 +9,13 @@
     <string name="enter_password_again">Zopakovať heslo*</string>
     <string name="register">Registrovať sa</string>
     <string name="login">Prihlásiť sa</string>
+    <string name="bar_name">Názov podniku</string>
+    <string name="visitor_count">Počet návštevníkov v bare: 3</string>
+    <string name="open_gps">Ukáž na mape</string>
+    <string name="open_web">Ukáž na webe</string>
+    <string name="add_friend_data">Pridať priateľa</string>
+    <string name="enter_friend_login">Zadať prihlasovacie meno priateľa</string>
+    <string name="add_friend">Pridať priateľa</string>
+    <string name="friends_list_data">Zoznam priateľov</string>
+
 </resources>
