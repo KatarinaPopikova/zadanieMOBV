@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import sk.stu.fei.mobv.R
 import sk.stu.fei.mobv.databinding.FragmentBarsListBinding
+import sk.stu.fei.mobv.helpers.PreferenceData
 
 class BarsListFragment : Fragment() {
     private var _binding: FragmentBarsListBinding? = null
@@ -26,6 +28,12 @@ class BarsListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val user = PreferenceData.getInstance().getUserItem(requireContext())
+        if ((user?.id ?: "").isBlank()) {
+            goToLoginScreen()
+            return
+        }
+
         binding.apply {
             thisFragment = this@BarsListFragment
         }
@@ -47,6 +55,10 @@ class BarsListFragment : Fragment() {
 
     fun goToTagBarsListScreen() {
         findNavController().navigate(R.id.action_barsListFragment_to_tagBarsListFragment)
+    }
+
+    fun goToLoginScreen() {
+        findNavController().navigate(R.id.action_barsListFragment_to_loginFragment)
     }
 }
 

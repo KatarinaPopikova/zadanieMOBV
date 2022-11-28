@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_barsListFragment_to_friendsListFragment"
             app:destination="@id/friendsListFragment" />
+        <action
+            android:id="@+id/action_barsListFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/friendsListFragment"
