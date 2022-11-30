@@ -7,11 +7,3 @@ data class User(
     val access: String,
     val refresh: String
 )
-
-fun User.asDtoModel(): UserDto {
-    return UserDto(
-        id = id,
-        refresh = refresh,
-        access = access
-    )
-}

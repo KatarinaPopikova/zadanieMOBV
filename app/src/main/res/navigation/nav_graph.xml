@@ -21,7 +21,9 @@
             app:destination="@id/friendsListFragment" />
         <action
             android:id="@+id/action_barsListFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/barsListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/friendsListFragment"
@@ -52,7 +54,9 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_loginFragment_to_barsListFragment"
-            app:destination="@id/barsListFragment" />
+            app:destination="@id/barsListFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/addFriendFragment"
@@ -71,7 +75,9 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_registerFragment_to_barsListFragment"
-            app:destination="@id/barsListFragment" />
+            app:destination="@id/barsListFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/barDetailFragment"

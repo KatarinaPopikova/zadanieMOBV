@@ -7,6 +7,11 @@
         <variable
             name="thisFragment"
             type="sk.stu.fei.mobv.ui.BarsListFragment" />
+
+
+        <variable
+            name="barsViewModel"
+            type="sk.stu.fei.mobv.ui.viewmodels.BarsViewModel" />
     </data>
 
     <FrameLayout
@@ -29,6 +34,7 @@
                 android:padding="16dp"
                 android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager"
+                app:listData="@{barsViewModel.bars}"
                 tools:listitem="@layout/bars_list_item" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

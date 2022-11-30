@@ -11,7 +11,10 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.POST
+import sk.stu.fei.mobv.network.dtos.BarDto
 import sk.stu.fei.mobv.network.dtos.UserDto
 
 private val moshi = Moshi.Builder()
@@ -41,6 +44,10 @@ interface RestApiService {
 
     @POST("user/refresh.php")
     fun userRefresh(@Body user: UserRefreshBody) : Call<UserDto>
+
+    @GET("bar/list.php")
+    @Headers("mobv-auth: accept")
+    suspend fun barList() : Response<List<BarDto>>
 
     companion object{
         const val BASE_URL = "https://zadanie.mpage.sk/"

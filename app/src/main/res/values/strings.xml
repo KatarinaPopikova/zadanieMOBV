@@ -10,6 +10,7 @@
     <string name="register">Registrovať sa</string>
     <string name="registration">Registrácia</string>
     <string name="login">Prihlásiť sa</string>
+    <string name="logout">Odhlásiť sa</string>
     <string name="logination">Prihlásenie</string>
     <string name="bar_name">Názov podniku</string>
     <string name="visitor_count">Počet návštevníkov v bare: 3</string>
@@ -24,5 +25,6 @@
     <string name="sort_bars_count">Zoradiť podľa počtu ľudí</string>
     <string name="sort_bars_az">Zoradiť podľa počtu ľudí</string>
     <string name="sort_bars_distance">Zoradiť podľa počtu ľudí</string>
+    <string name="sorts">Zoraďovanie</string>
 
 </resources>

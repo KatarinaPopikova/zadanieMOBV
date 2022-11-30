@@ -22,7 +22,6 @@ class AuthenticationViewModel(private val repository: Repository): ViewModel() {
     fun login(name: String, password: String){
         viewModelScope.launch {
             loading.postValue(true)
-            Log.d("AHOJ", name)
             repository.loginUser(
                 name,password,
                 { _message.postValue(it) },

@@ -53,7 +53,7 @@ class LoginFragment : Fragment() {
             showShortMessage(it)
         }
 
-        authenticationViewModel.user.observe(viewLifecycleOwner){
+        authenticationViewModel.user.observe(viewLifecycleOwner) {
             it?.let {
                 PreferenceData.getInstance().putUserItem(requireContext(), it)
                 goToBarsListScreen()
@@ -62,7 +62,9 @@ class LoginFragment : Fragment() {
 
 
         binding.apply {
+            lifecycleOwner = viewLifecycleOwner
             thisFragment = this@LoginFragment
+            authenticationViewModel = this@LoginFragment.authenticationViewModel
         }
     }
 

@@ -38,6 +38,7 @@
             android:maxLines="1"
             android:paddingTop="16dp"
             android:paddingEnd="16dp"
+            android:text="@{bar.name}"
             android:textAppearance="?attr/textAppearanceSubtitle1"
             tools:text="@tools:sample/lorem" />
 
@@ -50,6 +51,7 @@
             android:layout_toEndOf="@id/bar_item_icon"
             android:maxLines="2"
             android:paddingEnd="16dp"
+            android:text="@{String.valueOf(bar.usersCount)}"
             android:textAppearance="?attr/textAppearanceBody2"
             tools:text="@tools:sample/lorem/random" />
 

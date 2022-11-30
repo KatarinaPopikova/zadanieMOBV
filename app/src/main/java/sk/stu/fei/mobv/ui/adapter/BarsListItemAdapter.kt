@@ -23,7 +23,6 @@ class BarsListItemAdapter (
 
     }
 
-
     companion object DiffCallback : DiffUtil.ItemCallback<Bar>() {
         override fun areItemsTheSame(oldItem: Bar, newItem: Bar): Boolean {
             return oldItem.id == newItem.id

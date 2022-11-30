@@ -61,7 +61,9 @@ class RegisterFragment : Fragment() {
 
 
         binding.apply {
+            lifecycleOwner = viewLifecycleOwner
             thisFragment = this@RegisterFragment
+            authenticationViewModel = this@RegisterFragment.authenticationViewModel
         }
     }
 
@@ -92,7 +94,7 @@ class RegisterFragment : Fragment() {
     }
 
     private fun goToBarsListScreen() {
-        findNavController().navigate(R.id.action_loginFragment_to_barsListFragment)
+        findNavController().navigate(R.id.action_registerFragment_to_barsListFragment)
     }
 
     private fun showShortMessage(message: String) {

@@ -1,10 +1,17 @@
 package sk.stu.fei.mobv.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.asLiveData
 import sk.stu.fei.mobv.database.daos.BarDao
+import sk.stu.fei.mobv.database.entities.asDomainModelList
+import sk.stu.fei.mobv.domain.Bar
 import sk.stu.fei.mobv.network.RestApiService
 import sk.stu.fei.mobv.network.UserCreateBody
 import sk.stu.fei.mobv.network.UserLoginBody
 import sk.stu.fei.mobv.network.dtos.UserDto
+import sk.stu.fei.mobv.network.dtos.asDomainModelList
+import sk.stu.fei.mobv.network.dtos.asEntityModelList
 import java.io.IOException
 
 class Repository private constructor(
@@ -74,6 +81,48 @@ class Repository private constructor(
             onStatus(null)
         }
     }
+
+    suspend fun refreshBarList(
+        onError: (error: String) -> Unit
+    ) {
+        try {
+            val resp = service.barList()
+            if (resp.isSuccessful) {
+                resp.body()?.let { bars ->
+                    barDao.insertBars(bars.asEntityModelList())
+                } ?: onError("Failed to load bars")
+            } else {
+                onError("Failed to read bars")
+            }
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            onError("Failed to load bars, check internet connection")
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            onError("Failed to load bars, error.")
+        }
+    }
+
+    fun getBarsByNameAsc(): LiveData<List<Bar>> =
+        Transformations.map(barDao.getBarsByNameAsc().asLiveData()) {
+            it.asDomainModelList()
+        }
+
+    fun getBarsByNameDesc(): LiveData<List<Bar>> =
+        Transformations.map(barDao.getBarsByNameDesc().asLiveData()) {
+            it.asDomainModelList()
+        }
+
+    fun getBarsByUsersCountAsc(): LiveData<List<Bar>> =
+        Transformations.map(barDao.getBarsByUsersCountAsc().asLiveData()) {
+            it.asDomainModelList()
+        }
+
+    fun getBarsByUsersCountDesc(): LiveData<List<Bar>> =
+        Transformations.map(barDao.getBarsByUsersCountDesc().asLiveData()) {
+            it.asDomainModelList()
+        }
+
 
     companion object {
         @Volatile
