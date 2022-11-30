@@ -5,6 +5,10 @@ data class Bar(
     val name: String,
     val type: String,
     val latitude: Double,
-    var longitude: Double,
-    var usersCount: Int
+    val longitude: Double,
+    var distance: Double = 0.0,
+    var usersCount: Int = 0,
+    val phoneNumber: String? = null,
+    val webPage: String? = null,
+    val ownerName: String? = null
 )

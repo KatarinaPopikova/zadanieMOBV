@@ -1,6 +1,5 @@
 package sk.stu.fei.mobv.database.daos
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -33,4 +32,7 @@ interface BarDao {
 
     @Query("SELECT * FROM bars order by users_count DESC")
     fun getBarsByUsersCountDesc(): Flow<List<BarEntity>>
+
+    @Query("SELECT users_count from bars WHERE id = :id")
+    suspend fun getBarUserCount(id: Long): Int
 }

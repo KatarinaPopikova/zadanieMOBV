@@ -1,64 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.BarDetailFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+        <variable
+            name="thisFragment"
+            type="sk.stu.fei.mobv.ui.BarDetailFragment" />
+
+        <variable
+            name="barDetailViewModel"
+            type="sk.stu.fei.mobv.ui.viewmodels.BarDetailViewModel" />
+
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:orientation="vertical"
+        tools:context=".ui.BarDetailFragment">
 
 
-        <TextView
-            android:id="@+id/bar_name"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/bar_name"
-            android:minHeight="20dp"
+            android:layout_height="match_parent"
             android:padding="16dp"
-            android:textSize="30sp"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/visitor_count"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/visitor_count"
-            android:minHeight="20dp"
-            android:padding="16dp"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/bar_name" />
+            tools:context=".ui.BarDetailFragment">
 
 
-        <ImageView
-            android:id="@+id/open_web"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="20dp"
-            android:contentDescription="@string/open_web"
-            android:src="@drawable/ic_web"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/visitor_count" />
+            <TextView
+                android:id="@+id/bar_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/bar_name"
+                android:minHeight="20dp"
+                android:padding="16dp"
+                android:textSize="30sp"
+                android:text="@{barDetailViewModel.bar.name}"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/open_gps_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="80dp"
-            android:layout_marginTop="20dp"
-            android:contentDescription="@string/open_gps"
-            android:src="@drawable/ic_gps"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/visitor_count" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/visitor_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@{@string/visitor_count(barDetailViewModel.bar.usersCount)}"
+                android:minHeight="20dp"
+                android:padding="16dp"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/bar_name" />
 
 
-</FrameLayout>
+            <ImageView
+                android:id="@+id/open_web"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="20dp"
+                android:contentDescription="@string/open_web"
+                android:src="@drawable/ic_web"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/visitor_count" />
+
+            <ImageView
+                android:id="@+id/open_gps_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="80dp"
+                android:contentDescription="@string/open_gps"
+                android:src="@drawable/ic_gps"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/visitor_count" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>

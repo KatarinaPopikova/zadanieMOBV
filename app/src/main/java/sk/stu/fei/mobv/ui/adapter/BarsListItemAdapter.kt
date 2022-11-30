@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import sk.stu.fei.mobv.databinding.BarsListItemBinding
 import sk.stu.fei.mobv.domain.Bar
-import sk.stu.fei.mobv.domain.Friend
 
 class BarsListItemAdapter (
     private val barsListItemEventListener: BarsListItemEventListener
@@ -47,9 +46,21 @@ class BarsListItemAdapter (
         val bar: Bar = getItem(position)
         holder.bind(barsListItemEventListener, bar)
     }
+
+    override fun onCurrentListChanged(
+        previousList: MutableList<Bar>,
+        currentList: MutableList<Bar>
+    ) {
+        super.onCurrentListChanged(previousList, currentList)
+        barsListItemEventListener.onListChanged()
+    }
 }
 
-class BarsListItemEventListener(val clickListener: () -> Unit ){
-    fun onClick() = clickListener()
+class BarsListItemEventListener(
+    val onItemClickListener: (barId: Long) -> Unit,
+    val onListChangedListener: () -> Unit
+){
+    fun onItemClick(barId: Long) = onItemClickListener(barId)
+    fun onListChanged() = onListChangedListener()
 
 }

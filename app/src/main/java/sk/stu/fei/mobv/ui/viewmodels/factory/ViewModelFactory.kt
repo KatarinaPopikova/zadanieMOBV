@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import sk.stu.fei.mobv.repository.Repository
 import sk.stu.fei.mobv.ui.viewmodels.AuthenticationViewModel
+import sk.stu.fei.mobv.ui.viewmodels.BarDetailViewModel
 import sk.stu.fei.mobv.ui.viewmodels.BarsViewModel
 
 class ViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
@@ -16,6 +17,11 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.F
         if (modelClass.isAssignableFrom(BarsViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return BarsViewModel(repository) as T
+        }
+
+        if (modelClass.isAssignableFrom(BarDetailViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return BarDetailViewModel(repository) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")

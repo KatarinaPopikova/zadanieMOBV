@@ -10,9 +10,36 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_switch_layout"
+        android:id="@+id/sort_bars_name_asc_action"
         android:icon="@drawable/ic_sort"
-        android:title="@string/sort_bars_az"
+        android:title="@string/sort_bars_name_asc"
         app:showAsAction="collapseActionView"/>
+    <item
+        android:id="@+id/sort_bars_name_desc_action"
+        android:icon="@drawable/ic_sort"
+        android:title="@string/sort_bars_name_desc"
+        app:showAsAction="collapseActionView"/>
+    <item
+        android:id="@+id/sort_users_count_asc_action"
+        android:icon="@drawable/ic_sort"
+        android:title="@string/sort_bars_users_count_asc"
+        app:showAsAction="collapseActionView"/>
+    <item
+        android:id="@+id/sort_users_count_desc_action"
+        android:icon="@drawable/ic_sort"
+        android:title="@string/sort_bars_users_count_desc"
+        app:showAsAction="collapseActionView"/>
+    <item
+        android:id="@+id/sort_bars_distance_asc_action"
+        android:icon="@drawable/ic_sort"
+        android:title="@string/sort_bars_distance_asc"
+        app:showAsAction="collapseActionView"/>
+    <item
+        android:id="@+id/sort_bars_distance_desc_action"
+        android:icon="@drawable/ic_sort"
+        android:title="@string/sort_bars_distance_desc"
+        app:showAsAction="collapseActionView"/>
+
+
 
 </menu>

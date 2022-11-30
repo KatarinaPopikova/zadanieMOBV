@@ -13,7 +13,7 @@
     <string name="logout">Odhlásiť sa</string>
     <string name="logination">Prihlásenie</string>
     <string name="bar_name">Názov podniku</string>
-    <string name="visitor_count">Počet návštevníkov v bare: 3</string>
+    <string name="visitor_count">Počet návštevníkov v bare: %d</string>
     <string name="open_gps">Ukáž na mape</string>
     <string name="open_web">Ukáž na webe</string>
     <string name="add_friend_data">Pridať priateľa</string>
@@ -22,9 +22,11 @@
     <string name="show_friends">Zobraziť priateľov</string>
     <string name="friends_list_data">Zoznam priateľov</string>
     <string name="tag_bar">Pridať sa do podniku</string>
-    <string name="sort_bars_count">Zoradiť podľa počtu ľudí</string>
-    <string name="sort_bars_az">Zoradiť podľa počtu ľudí</string>
-    <string name="sort_bars_distance">Zoradiť podľa počtu ľudí</string>
-    <string name="sorts">Zoraďovanie</string>
+    <string name="sort_bars_users_count_asc">Zoradiť podľa počtu ľudí vzostupne</string>
+    <string name="sort_bars_users_count_desc">Zoradiť podľa počtu ľudí zostupne</string>
+    <string name="sort_bars_distance_asc">Zoradiť podľa vzdialenosti vzostupne</string>
+    <string name="sort_bars_distance_desc">Zoradiť podľa vzdialenosti zostupne</string>
+    <string name="sort_bars_name_asc">Zoradiť podľa názvu vzostupne</string>
+    <string name="sort_bars_name_desc">Zoradiť podľa názvu zostupne</string>
 
 </resources>

@@ -1,6 +1,5 @@
 package sk.stu.fei.mobv.ui.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,29 +16,31 @@ class AuthenticationViewModel(private val repository: Repository): ViewModel() {
 
     val user = MutableLiveData<User>(null)
 
-    val loading = MutableLiveData(false)
+    private val _loading = MutableLiveData(false)
+    val loading: LiveData<Boolean>
+        get() = _loading
 
     fun login(name: String, password: String){
         viewModelScope.launch {
-            loading.postValue(true)
+            _loading.postValue(true)
             repository.loginUser(
                 name,password,
                 { _message.postValue(it) },
                 { user.postValue(it?.asDomainModel()) }
             )
-            loading.postValue(false)
+            _loading.postValue(false)
         }
     }
 
     fun signup(name: String, password: String){
         viewModelScope.launch {
-            loading.postValue(true)
+            _loading.postValue(true)
             repository.registerUser(
                 name,password,
                 { _message.postValue(it) },
                 { user.postValue(it?.asDomainModel()) }
             )
-            loading.postValue(false)
+            _loading.postValue(false)
         }
     }
 

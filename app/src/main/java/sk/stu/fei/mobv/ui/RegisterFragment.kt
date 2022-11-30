@@ -42,23 +42,23 @@ class RegisterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val user = PreferenceData.getInstance().getUserItem(requireContext())
-        if ((user?.id ?: "").isNotBlank()) {
+        val loggedUser = PreferenceData.getInstance().getUserItem(requireContext())
+        if ((loggedUser?.id ?: "").isNotBlank()) {
             goToBarsListScreen()
             return
         }
 
-        authenticationViewModel.message.observe(viewLifecycleOwner) {
-            showShortMessage(it)
-        }
-
-        authenticationViewModel.user.observe(viewLifecycleOwner) {
-            it?.let {
-                PreferenceData.getInstance().putUserItem(requireContext(), it)
-                goToBarsListScreen()
+        authenticationViewModel.apply {
+            message.observe(viewLifecycleOwner) {
+                showShortMessage(it)
+            }
+            user.observe(viewLifecycleOwner) {
+                it?.let {
+                    PreferenceData.getInstance().putUserItem(requireContext(), it)
+                    goToBarsListScreen()
+                }
             }
         }
-
 
         binding.apply {
             lifecycleOwner = viewLifecycleOwner

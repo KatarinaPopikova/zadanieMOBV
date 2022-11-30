@@ -22,7 +22,7 @@ class TokenAuthenticator(val context: Context) : Authenticator {
                     return null
                 }
 
-                val tokenResponse = RestApiService.create(context).userRefresh(
+                val tokenResponse = RestApiService.create(context).refreshUser(
                     UserRefreshBody(
                         user.refresh
                     )

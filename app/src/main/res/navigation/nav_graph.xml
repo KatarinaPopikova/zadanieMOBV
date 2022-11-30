@@ -36,12 +36,23 @@
         <action
             android:id="@+id/action_friendsListFragment_to_addFriendFragment"
             app:destination="@id/addFriendFragment" />
+        <action
+            android:id="@+id/action_friendsListFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/barsListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/tagBarsListFragment"
         android:name="sk.stu.fei.mobv.ui.TagBarsListFragment"
         android:label="TagBarsListFragment"
-        tools:layout="@layout/fragment_tag_bars_list" />
+        tools:layout="@layout/fragment_tag_bars_list" >
+        <action
+            android:id="@+id/action_tagBarsListFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/barsListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="sk.stu.fei.mobv.ui.LoginFragment"
@@ -62,7 +73,13 @@
         android:id="@+id/addFriendFragment"
         android:name="sk.stu.fei.mobv.ui.AddFriendFragment"
         android:label="fragment_add_friend"
-        tools:layout="@layout/fragment_add_friend" />
+        tools:layout="@layout/fragment_add_friend" >
+        <action
+            android:id="@+id/action_addFriendFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/barsListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="sk.stu.fei.mobv.ui.RegisterFragment"
@@ -83,5 +100,14 @@
         android:id="@+id/barDetailFragment"
         android:name="sk.stu.fei.mobv.ui.BarDetailFragment"
         android:label="BarDetailFragment"
-        tools:layout="@layout/fragment_bar_detail"  />
+        tools:layout="@layout/fragment_bar_detail"  >
+        <argument
+            android:name="bar_id"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_barDetailFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/barsListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

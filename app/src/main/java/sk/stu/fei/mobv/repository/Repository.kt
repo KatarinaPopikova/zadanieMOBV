@@ -10,7 +10,7 @@ import sk.stu.fei.mobv.network.RestApiService
 import sk.stu.fei.mobv.network.UserCreateBody
 import sk.stu.fei.mobv.network.UserLoginBody
 import sk.stu.fei.mobv.network.dtos.UserDto
-import sk.stu.fei.mobv.network.dtos.asDomainModelList
+import sk.stu.fei.mobv.network.dtos.asDomainModel
 import sk.stu.fei.mobv.network.dtos.asEntityModelList
 import java.io.IOException
 
@@ -25,9 +25,9 @@ class Repository private constructor(
         onStatus: (success: UserDto?) -> Unit
     ) {
         try {
-            val resp = service.userCreate(UserCreateBody(name = name, password = password))
-            if (resp.isSuccessful) {
-                resp.body()?.let { user ->
+            val response = service.registerUser(UserCreateBody(name = name, password = password))
+            if (response.isSuccessful) {
+                response.body()?.let { user ->
                     if (user.id == "-1") {
                         onStatus(null)
                         onError("Name already exists. Choose another.")
@@ -57,9 +57,9 @@ class Repository private constructor(
         onStatus: (success: UserDto?) -> Unit
     ) {
         try {
-            val resp = service.userLogin(UserLoginBody(name = name, password = password))
-            if (resp.isSuccessful) {
-                resp.body()?.let { user ->
+            val response = service.loginUser(UserLoginBody(name = name, password = password))
+            if (response.isSuccessful) {
+                response.body()?.let { user ->
                     if (user.id == "-1") {
                         onStatus(null)
                         onError("Wrong name or password.")
@@ -86,9 +86,9 @@ class Repository private constructor(
         onError: (error: String) -> Unit
     ) {
         try {
-            val resp = service.barList()
-            if (resp.isSuccessful) {
-                resp.body()?.let { bars ->
+            val response = service.getBars()
+            if (response.isSuccessful) {
+                response.body()?.let { bars ->
                     barDao.insertBars(bars.asEntityModelList())
                 } ?: onError("Failed to load bars")
             } else {
@@ -101,6 +101,33 @@ class Repository private constructor(
             ex.printStackTrace()
             onError("Failed to load bars, error.")
         }
+    }
+
+    suspend fun getTagBar(
+        id: Long,
+        onError: (error: String) -> Unit
+    ): Bar? {
+        var bar: Bar? = null
+        try {
+            val query = "[out:json];node($id);out body;>;out skel;"
+            val response = service.getTagBars(query)
+            if (response.isSuccessful) {
+                response.body()?.let { tagBars ->
+                    if (tagBars.tagBarList.isNotEmpty()) {
+                        bar = tagBars.tagBarList[0].asDomainModel()
+                    }
+                } ?: onError("Failed to load bars")
+            } else {
+                onError("Failed to read bars")
+            }
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            onError("Failed to load bars, check internet connection")
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            onError("Failed to load bars, error.")
+        }
+        return bar
     }
 
     fun getBarsByNameAsc(): LiveData<List<Bar>> =
@@ -122,6 +149,8 @@ class Repository private constructor(
         Transformations.map(barDao.getBarsByUsersCountDesc().asLiveData()) {
             it.asDomainModelList()
         }
+
+    suspend fun getBarUserCount(barId: Long): Int = barDao.getBarUserCount(barId)
 
 
     companion object {

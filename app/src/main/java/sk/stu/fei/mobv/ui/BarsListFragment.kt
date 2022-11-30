@@ -1,22 +1,20 @@
 package sk.stu.fei.mobv.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import androidx.core.content.ContextCompat
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import sk.stu.fei.mobv.MainApplication
 import sk.stu.fei.mobv.R
 import sk.stu.fei.mobv.databinding.FragmentBarsListBinding
+import sk.stu.fei.mobv.helpers.BarsSort
 import sk.stu.fei.mobv.helpers.PreferenceData
 import sk.stu.fei.mobv.ui.adapter.BarsListItemAdapter
 import sk.stu.fei.mobv.ui.adapter.BarsListItemEventListener
-import sk.stu.fei.mobv.ui.viewmodels.AuthenticationViewModel
 import sk.stu.fei.mobv.ui.viewmodels.BarsViewModel
 import sk.stu.fei.mobv.ui.viewmodels.factory.ViewModelFactory
 
@@ -47,15 +45,22 @@ class BarsListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val user = PreferenceData.getInstance().getUserItem(requireContext())
-        if ((user?.id ?: "").isBlank()) {
+        val loggedUser = PreferenceData.getInstance().getUserItem(requireContext())
+        if ((loggedUser?.id ?: "").isBlank()) {
             goToLoginScreen()
             return
         }
 
-        barsViewModel.refreshData()
-
         configureMenuBar()
+
+        barsViewModel.apply {
+            loading.observe(viewLifecycleOwner) {
+                binding.refreshLayout.isRefreshing = it
+            }
+            message.observe(viewLifecycleOwner) {
+                showShortMessage(it)
+            }
+        }
 
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
@@ -63,18 +68,15 @@ class BarsListFragment : Fragment() {
             barsViewModel = this@BarsListFragment.barsViewModel
         }.apply {
             barsListView.adapter = BarsListItemAdapter(
-                BarsListItemEventListener {
-                    Log.d("AHOJ", "Ano som tu")
-                }
+                BarsListItemEventListener(
+                    { barId: Long -> goToBarDetailScreen(barId) },
+                    { barsListView.scrollToPosition(0) }
+                )
             )
         }.apply {
             refreshLayout.setOnRefreshListener {
                 this@BarsListFragment.barsViewModel.refreshData()
             }
-        }
-
-        barsViewModel.loading.observe(viewLifecycleOwner) {
-            binding.refreshLayout.isRefreshing = it
         }
     }
 
@@ -91,12 +93,35 @@ class BarsListFragment : Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
+                when (menuItem.itemId) {
                     R.id.logout_action -> {
                         logout()
                         return true
                     }
-                    else -> false
+                    R.id.sort_bars_name_asc_action -> {
+                        barsViewModel.sortBy(BarsSort.NAME_ASC)
+                        return true
+                    }
+                    R.id.sort_bars_name_desc_action -> {
+                        barsViewModel.sortBy(BarsSort.NAME_DESC)
+                        return true
+                    }
+                    R.id.sort_users_count_asc_action -> {
+                        barsViewModel.sortBy(BarsSort.VISIT_ASC)
+                        return true
+                    }
+                    R.id.sort_users_count_desc_action -> {
+                        barsViewModel.sortBy(BarsSort.VISIT_DESC)
+                        return true
+                    }
+                    R.id.sort_bars_distance_asc_action -> {
+                        barsViewModel.sortBy(BarsSort.DIST_ASC)
+                        return true
+                    }
+                    else -> {
+                        barsViewModel.sortBy(BarsSort.DIST_DESC)
+                        return false
+                    }
                 }
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
@@ -111,8 +136,10 @@ class BarsListFragment : Fragment() {
         findNavController().navigate(R.id.action_barsListFragment_to_friendsListFragment)
     }
 
-    fun goToBarDetailScreen() {
-        findNavController().navigate(R.id.action_barsListFragment_to_barDetailFragment)
+    fun goToBarDetailScreen(barId: Long) {
+        findNavController().navigate(
+            BarsListFragmentDirections.actionBarsListFragmentToBarDetailFragment(barId)
+        )
     }
 
     fun goToTagBarsListScreen() {
@@ -121,6 +148,14 @@ class BarsListFragment : Fragment() {
 
     fun goToLoginScreen() {
         findNavController().navigate(R.id.action_barsListFragment_to_loginFragment)
+    }
+
+    private fun showShortMessage(message: String) {
+        Toast.makeText(
+            requireContext(),
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
 

@@ -11,28 +11,35 @@ class BarsViewModel(private val repository: Repository) : ViewModel() {
     val message: LiveData<String>
         get() = _message
 
-    private var _barsSort: MutableLiveData<BarsSort> = MutableLiveData(BarsSort.NAME_ASC)
-    val isSortAsc: LiveData<BarsSort>
-        get() = _barsSort
+    private var barsSort: MutableLiveData<BarsSort> = MutableLiveData(BarsSort.NAME_ASC)
 
-    val loading = MutableLiveData(false)
+    private val _loading = MutableLiveData(false)
+    val loading: LiveData<Boolean>
+        get() = _loading
 
-    val bars: LiveData<List<Bar>?> = Transformations.switchMap(_barsSort) { sort ->
-        when (sort) {
-            BarsSort.NAME_ASC -> repository.getBarsByNameAsc()
-            BarsSort.NAME_DESC -> repository.getBarsByNameDesc()
-            BarsSort.DIST_ASC -> repository.getBarsByNameAsc()
-            BarsSort.DIST_DESC -> repository.getBarsByNameAsc()
-            BarsSort.VISIT_ASC -> repository.getBarsByUsersCountAsc()
-            else -> repository.getBarsByUsersCountDesc()
+    val bars: LiveData<List<Bar>?> by lazy {
+        refreshData()
+        return@lazy Transformations.switchMap(barsSort) { sort ->
+            when (sort) {
+                BarsSort.NAME_ASC -> repository.getBarsByNameAsc()
+                BarsSort.NAME_DESC -> repository.getBarsByNameDesc()
+                BarsSort.DIST_ASC -> repository.getBarsByNameAsc()
+                BarsSort.DIST_DESC -> repository.getBarsByNameAsc()
+                BarsSort.VISIT_ASC -> repository.getBarsByUsersCountAsc()
+                else -> repository.getBarsByUsersCountDesc()
+            }
         }
+    }
+
+    fun sortBy(sortType: BarsSort) {
+        barsSort.value = sortType
     }
 
     fun refreshData() {
         viewModelScope.launch {
-            loading.postValue(true)
+            _loading.postValue(true)
             repository.refreshBarList { _message.postValue(it) }
-            loading.postValue(false)
+            _loading.postValue(false)
         }
     }
 

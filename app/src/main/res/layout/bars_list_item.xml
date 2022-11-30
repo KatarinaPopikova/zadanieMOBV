@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:minHeight="64dp"
-        android:onClick="@{() -> barsListItemEventListener.onClick()}">
+        android:onClick="@{() -> barsListItemEventListener.onItemClick(bar.id)}">
 
         <ImageView
             android:id="@+id/bar_item_icon"
@@ -51,7 +51,7 @@
             android:layout_toEndOf="@id/bar_item_icon"
             android:maxLines="2"
             android:paddingEnd="16dp"
-            android:text="@{String.valueOf(bar.usersCount)}"
+            android:text="@{@string/visitor_count(bar.usersCount)}"
             android:textAppearance="?attr/textAppearanceBody2"
             tools:text="@tools:sample/lorem/random" />
 

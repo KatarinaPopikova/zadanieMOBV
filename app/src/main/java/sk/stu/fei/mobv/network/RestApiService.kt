@@ -10,11 +10,9 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 import sk.stu.fei.mobv.network.dtos.BarDto
+import sk.stu.fei.mobv.network.dtos.TagBarContainerDto
 import sk.stu.fei.mobv.network.dtos.UserDto
 
 private val moshi = Moshi.Builder()
@@ -37,17 +35,21 @@ data class UserLoginBody(
 
 interface RestApiService {
     @POST("user/create.php")
-    suspend fun userCreate(@Body user: UserCreateBody): Response<UserDto>
+    suspend fun registerUser(@Body user: UserCreateBody): Response<UserDto>
 
     @POST("user/login.php")
-    suspend fun userLogin(@Body user: UserLoginBody): Response<UserDto>
+    suspend fun loginUser(@Body user: UserLoginBody): Response<UserDto>
 
     @POST("user/refresh.php")
-    fun userRefresh(@Body user: UserRefreshBody) : Call<UserDto>
+    fun refreshUser(@Body user: UserRefreshBody) : Call<UserDto>
 
     @GET("bar/list.php")
     @Headers("mobv-auth: accept")
-    suspend fun barList() : Response<List<BarDto>>
+    suspend fun getBars() : Response<List<BarDto>>
+
+    @GET("https://overpass-api.de/api/interpreter?")
+    suspend fun getTagBars(@Query("data") data: String): Response<TagBarContainerDto>
+
 
     companion object{
         const val BASE_URL = "https://zadanie.mpage.sk/"
