@@ -84,7 +84,7 @@ class LoginFragment : Fragment() {
                 password
             )
         } else {
-            showShortMessage("Fill password and username")
+            showShortMessage(getString(R.string.fill_name_password))
         }
     }
 

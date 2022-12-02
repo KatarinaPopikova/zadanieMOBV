@@ -20,22 +20,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:minHeight="64dp"
-        android:onClick="@{() -> barsListItemEventListener.onItemClick(bar.id)}">
-
-        <ImageView
-            android:id="@+id/bar_item_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            tools:src="@tools:sample/avatars" />
+        android:onClick="@{() -> barsListItemEventListener.onItemClick(bar)}">
 
         <TextView
             android:id="@+id/bar_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/bar_item_icon"
             android:maxLines="1"
+            android:layout_gravity="center_vertical"
             android:paddingTop="16dp"
             android:paddingEnd="16dp"
             android:text="@{bar.name}"
@@ -48,13 +40,22 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/bar_name"
             android:layout_gravity="center_vertical"
-            android:layout_toEndOf="@id/bar_item_icon"
             android:maxLines="2"
             android:paddingEnd="16dp"
-            android:text="@{@string/visitor_count(bar.usersCount)}"
+            android:text='@{bar.usersCount != null ? @string/visitor_count(bar.usersCount) : ""}'
             android:textAppearance="?attr/textAppearanceBody2"
             tools:text="@tools:sample/lorem/random" />
 
-
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/visitor_count"
+            android:layout_gravity="center_vertical"
+            android:paddingEnd="16dp"
+            android:text='@{bar.distance != null ? String.format("%.2f m",bar.distance) : ""}'
+            android:maxLines="1"
+            android:textAppearance="?attr/textAppearanceBody2"
+            />
     </RelativeLayout>
 </layout>

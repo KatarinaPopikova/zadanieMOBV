@@ -6,6 +6,7 @@ import sk.stu.fei.mobv.repository.Repository
 import sk.stu.fei.mobv.ui.viewmodels.AuthenticationViewModel
 import sk.stu.fei.mobv.ui.viewmodels.BarDetailViewModel
 import sk.stu.fei.mobv.ui.viewmodels.BarsViewModel
+import sk.stu.fei.mobv.ui.viewmodels.TagBarsViewModel
 
 class ViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -22,6 +23,11 @@ class ViewModelFactory(private val repository: Repository) : ViewModelProvider.F
         if (modelClass.isAssignableFrom(BarDetailViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return BarDetailViewModel(repository) as T
+        }
+
+        if (modelClass.isAssignableFrom(TagBarsViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return TagBarsViewModel(repository) as T
         }
 
         throw IllegalArgumentException("Unknown ViewModel class")

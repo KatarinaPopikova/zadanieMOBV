@@ -24,11 +24,11 @@ class BarDetailViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             _loading.postValue(true)
             repository.refreshBarList { _message.postValue(it) }
-            val tagBar: Bar? = repository.getTagBar(id) { _message.postValue(it) }
-            tagBar?.let {
+            val bar: Bar? = repository.getBar(id) { _message.postValue(it) }
+            bar?.let {
                 it.usersCount = repository.getBarUserCount(id)
             }
-            _bar.postValue(tagBar)
+            _bar.postValue(bar)
             _loading.postValue(false)
         }
     }

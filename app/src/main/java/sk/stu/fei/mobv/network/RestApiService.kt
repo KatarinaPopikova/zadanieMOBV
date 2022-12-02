@@ -33,6 +33,14 @@ data class UserLoginBody(
     val password: String
 )
 
+data class BarMessageBody(
+    val id: String,
+    val name: String,
+    val type: String,
+    val lat: Double,
+    val lon: Double
+)
+
 interface RestApiService {
     @POST("user/create.php")
     suspend fun registerUser(@Body user: UserCreateBody): Response<UserDto>
@@ -50,6 +58,9 @@ interface RestApiService {
     @GET("https://overpass-api.de/api/interpreter?")
     suspend fun getTagBars(@Query("data") data: String): Response<TagBarContainerDto>
 
+    @POST("bar/message.php")
+    @Headers("mobv-auth: accept")
+    suspend fun barMessage(@Body bar: BarMessageBody) : Response<Any>
 
     companion object{
         const val BASE_URL = "https://zadanie.mpage.sk/"

@@ -3,6 +3,7 @@ package sk.stu.fei.mobv.ui.viewmodels
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import sk.stu.fei.mobv.domain.Bar
+import sk.stu.fei.mobv.domain.MyLocation
 import sk.stu.fei.mobv.helpers.BarsSort
 import sk.stu.fei.mobv.repository.Repository
 
@@ -13,9 +14,9 @@ class BarsViewModel(private val repository: Repository) : ViewModel() {
 
     private var barsSort: MutableLiveData<BarsSort> = MutableLiveData(BarsSort.NAME_ASC)
 
-    private val _loading = MutableLiveData(false)
-    val loading: LiveData<Boolean>
-        get() = _loading
+    val loading = MutableLiveData(false)
+
+    val myLocation = MutableLiveData<MyLocation>(null)
 
     val bars: LiveData<List<Bar>?> by lazy {
         refreshData()
@@ -23,8 +24,8 @@ class BarsViewModel(private val repository: Repository) : ViewModel() {
             when (sort) {
                 BarsSort.NAME_ASC -> repository.getBarsByNameAsc()
                 BarsSort.NAME_DESC -> repository.getBarsByNameDesc()
-                BarsSort.DIST_ASC -> repository.getBarsByNameAsc()
-                BarsSort.DIST_DESC -> repository.getBarsByNameAsc()
+                BarsSort.DIST_ASC -> repository.getBarsByDistanceAsc(myLocation.value)
+                BarsSort.DIST_DESC -> repository.getBarsByDistanceDesc(myLocation.value)
                 BarsSort.VISIT_ASC -> repository.getBarsByUsersCountAsc()
                 else -> repository.getBarsByUsersCountDesc()
             }
@@ -37,9 +38,9 @@ class BarsViewModel(private val repository: Repository) : ViewModel() {
 
     fun refreshData() {
         viewModelScope.launch {
-            _loading.postValue(true)
+            loading.postValue(true)
             repository.refreshBarList { _message.postValue(it) }
-            _loading.postValue(false)
+            loading.postValue(false)
         }
     }
 

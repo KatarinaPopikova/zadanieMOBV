@@ -83,9 +83,9 @@ class RegisterFragment : Fragment() {
             )
         } else if (loginName.isBlank() || password.isBlank()
         ) {
-            showShortMessage("Fill in name and password")
+            showShortMessage(getString(R.string.fill_name_password))
         } else {
-            showShortMessage("Passwords must be same")
+            showShortMessage(getString(R.string.passwords_be_same))
         }
     }
 

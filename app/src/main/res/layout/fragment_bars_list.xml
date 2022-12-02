@@ -45,7 +45,7 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
             android:contentDescription="@string/tag_bar"
-            android:onClick="@{() -> thisFragment.goToFriendsListScreen()}"
+            android:onClick="@{() -> thisFragment.handleShowNearbyBarsClick()}"
             android:src="@drawable/ic_tag_bar" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -56,7 +56,7 @@
             android:layout_marginBottom="80dp"
             android:layout_marginEnd="16dp"
             android:contentDescription="@string/show_friends"
-            android:onClick="@{() -> thisFragment.goToTagBarsListScreen()}"
+            android:onClick="@{() -> thisFragment.goToFriendsListScreen()}"
             android:src="@drawable/ic_friends" />
     </FrameLayout>
 </layout>

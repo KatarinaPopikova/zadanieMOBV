@@ -57,10 +57,10 @@ class BarsListItemAdapter (
 }
 
 class BarsListItemEventListener(
-    val onItemClickListener: (barId: Long) -> Unit,
+    val onItemClickListener: (bar: Bar) -> Unit,
     val onListChangedListener: () -> Unit
 ){
-    fun onItemClick(barId: Long) = onItemClickListener(barId)
+    fun onItemClick(bar: Bar) = onItemClickListener(bar)
     fun onListChanged() = onListChangedListener()
 
 }

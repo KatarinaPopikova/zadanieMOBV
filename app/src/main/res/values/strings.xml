@@ -28,5 +28,7 @@
     <string name="sort_bars_distance_desc">Zoradiť podľa vzdialenosti zostupne</string>
     <string name="sort_bars_name_asc">Zoradiť podľa názvu vzostupne</string>
     <string name="sort_bars_name_desc">Zoradiť podľa názvu zostupne</string>
+    <string name="fill_name_password">Vyplňte prihlasovacie meno a heslo</string>
+    <string name="passwords_be_same">Heslá sa musia zhodovať</string>
 
 </resources>
