@@ -7,6 +7,10 @@
         <variable
             name="thisFragment"
             type="sk.stu.fei.mobv.ui.FriendsListFragment" />
+
+        <variable
+            name="friendsViewModel"
+            type="sk.stu.fei.mobv.ui.viewmodels.FriendsViewModel" />
     </data>
 
     <FrameLayout
@@ -19,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:onClick="@{() -> thisFragment.goToBarDetailScreen()}"
             tools:context=".ui.FriendsListFragment">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -30,6 +33,7 @@
                 android:padding="16dp"
                 android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager"
+                app:friendListData="@{friendsViewModel.friends}"
                 tools:listitem="@layout/friends_list_item" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

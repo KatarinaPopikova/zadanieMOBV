@@ -12,6 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 import sk.stu.fei.mobv.network.dtos.BarDto
+import sk.stu.fei.mobv.network.dtos.FriendDto
 import sk.stu.fei.mobv.network.dtos.TagBarContainerDto
 import sk.stu.fei.mobv.network.dtos.UserDto
 
@@ -41,6 +42,10 @@ data class BarMessageBody(
     val lon: Double
 )
 
+data class FriendMessageBody(
+    val contact: String,
+)
+
 interface RestApiService {
     @POST("user/create.php")
     suspend fun registerUser(@Body user: UserCreateBody): Response<UserDto>
@@ -61,6 +66,14 @@ interface RestApiService {
     @POST("bar/message.php")
     @Headers("mobv-auth: accept")
     suspend fun barMessage(@Body bar: BarMessageBody) : Response<Any>
+
+    @GET("contact/list.php")
+    @Headers("mobv-auth: accept")
+    suspend fun getFriends() : Response<List<FriendDto>>
+
+    @POST("contact/message.php")
+    @Headers("mobv-auth: accept")
+    suspend fun addFriend(@Body friend: FriendMessageBody) : Response<Any>
 
     companion object{
         const val BASE_URL = "https://zadanie.mpage.sk/"

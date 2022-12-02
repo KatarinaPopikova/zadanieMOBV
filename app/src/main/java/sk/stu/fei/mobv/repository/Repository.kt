@@ -6,14 +6,10 @@ import androidx.lifecycle.asLiveData
 import sk.stu.fei.mobv.database.daos.BarDao
 import sk.stu.fei.mobv.database.entities.asDomainModelList
 import sk.stu.fei.mobv.domain.Bar
+import sk.stu.fei.mobv.domain.Friend
 import sk.stu.fei.mobv.domain.MyLocation
-import sk.stu.fei.mobv.network.BarMessageBody
-import sk.stu.fei.mobv.network.RestApiService
-import sk.stu.fei.mobv.network.UserCreateBody
-import sk.stu.fei.mobv.network.UserLoginBody
-import sk.stu.fei.mobv.network.dtos.UserDto
-import sk.stu.fei.mobv.network.dtos.asDomainModel
-import sk.stu.fei.mobv.network.dtos.asEntityModelList
+import sk.stu.fei.mobv.network.*
+import sk.stu.fei.mobv.network.dtos.*
 import java.io.IOException
 
 class Repository private constructor(
@@ -180,9 +176,7 @@ class Repository private constructor(
                 )
             )
             if (resp.isSuccessful) {
-                resp.body()?.let { _ ->
-                    onSuccess(true)
-                }
+                onSuccess(true)
             } else {
                 onError("Failed to login, try again later.")
             }
@@ -193,6 +187,54 @@ class Repository private constructor(
             ex.printStackTrace()
             onError("Login in failed, error.")
         }
+    }
+
+    suspend fun addFriend(
+        friendName: String,
+        onError: (error: String) -> Unit,
+        onSuccess: (success: String) -> Unit
+    ) {
+        try {
+            val resp = service.addFriend(
+                FriendMessageBody(
+                    friendName
+                )
+            )
+            if (resp.isSuccessful) {
+                onSuccess("Friend was succesfully added")
+            } else {
+                onError("Failed to login, try again later.")
+            }
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            onError("Login failed, check internet connection")
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            onError("Login in failed, error.")
+        }
+    }
+
+    suspend fun getFriends(
+        onError: (error: String) -> Unit
+    ): List<Friend> {
+        var friends = listOf<Friend>()
+        try {
+            val response = service.getFriends()
+            if (response.isSuccessful) {
+                response.body()?.let { friendsDto ->
+                    friends = friendsDto.asDomainModelList()
+                } ?: onError("Failed to load bars")
+            } else {
+                onError("Failed to read bars")
+            }
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            onError("Failed to load bars, check internet connection")
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            onError("Failed to load bars, error.")
+        }
+        return friends
     }
 
     fun getBarsByNameAsc(): LiveData<List<Bar>> =

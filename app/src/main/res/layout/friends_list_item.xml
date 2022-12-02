@@ -21,17 +21,18 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
         android:minHeight="64dp"
-        android:onClick="@{() -> friendsListItemEventListener.onClick()}">
+        android:onClick="@{() -> friendsListItemEventListener.onItemClick(friend.barId)}">
 
         <ImageView
             android:id="@+id/friend_item_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:padding="16dp"
-            tools:src="@tools:sample/avatars" />
+            android:src="@drawable/ic_person" />
 
         <TextView
             android:id="@+id/friend_name"
+            android:text="@{friend.name}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/friend_item_icon"
@@ -50,6 +51,7 @@
             android:layout_toEndOf="@id/friend_item_icon"
             android:maxLines="2"
             android:paddingEnd="16dp"
+            android:text="@{friend.barName}"
             android:textAppearance="?attr/textAppearanceBody2"
             tools:text="@tools:sample/lorem/random" />
 

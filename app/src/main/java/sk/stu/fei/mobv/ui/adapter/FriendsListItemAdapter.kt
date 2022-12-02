@@ -50,7 +50,7 @@ class FriendsListItemAdapter(
     }
 }
 
-class FriendsListItemEventListener(val clickListener: () -> Unit) {
-    fun onClick() = clickListener()
+class FriendsListItemEventListener(val onItemClickListener: (barId: Long?) -> Unit) {
+    fun onItemClick(barId: Long?) = onItemClickListener(barId)
 
 }

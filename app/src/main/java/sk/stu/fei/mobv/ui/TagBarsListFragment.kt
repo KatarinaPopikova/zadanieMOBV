@@ -79,8 +79,6 @@ class TagBarsListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         val loggedUser = PreferenceData.getInstance().getUserItem(requireContext())
         if ((loggedUser?.id ?: "").isBlank()) {
             goToLoginScreen()
@@ -116,9 +114,7 @@ class TagBarsListFragment : Fragment() {
                 )
             )
         }.apply {
-            refreshLayout.setOnRefreshListener {
-                loadData()
-            }
+            refreshLayout.setOnRefreshListener { loadData() }
         }
 
         if (checkPermissions()) {

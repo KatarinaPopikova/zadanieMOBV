@@ -33,7 +33,7 @@
                 android:padding="16dp"
                 android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager"
-                app:listData="@{barsViewModel.bars}"
+                app:barListData="@{barsViewModel.bars}"
                 tools:listitem="@layout/bars_list_item" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
