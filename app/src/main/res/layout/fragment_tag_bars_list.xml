@@ -12,6 +12,8 @@
         <variable
             name="tagBarsViewModel"
             type="sk.stu.fei.mobv.ui.viewmodels.TagBarsViewModel" />
+        <import type="android.view.View" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,6 +37,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingEnd="16dp"
+                    android:paddingStart="16dp"
+                    android:paddingTop="16dp"
                     android:text="@{tagBarsViewModel.myBar.name}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -51,18 +55,20 @@
                     tools:text="Vzdialenost" />
 
 
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/check_in_bar_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:enabled="@{tagBarsViewModel.myBar!=null}"
                     android:onClick="@{() -> thisFragment.handleCheckInBarButtonClick()}"
-                    android:text="Check"
+                    android:text="@string/tag"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/bar_name" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
+
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
@@ -72,6 +78,7 @@
             app:layout_constraintTop_toBottomOf="@id/selected_bar"
             tools:context=".ui.TagBarsListFragment">
 
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tag_bars_list_view"
                 android:layout_width="match_parent"
@@ -79,10 +86,33 @@
                 android:clipToPadding="false"
                 android:padding="16dp"
                 android:scrollbars="vertical"
-                app:layoutManager="LinearLayoutManager"
                 app:barListData="@{tagBarsViewModel.bars}"
+                app:layoutManager="LinearLayoutManager"
                 tools:listitem="@layout/bars_list_item" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/check_in_bar_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#BA000000"
+            android:elevation="2dp"
+            android:visibility="invisible">
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/check_in_bar_lottie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="false"
+                app:lottie_rawRes="@raw/animation" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

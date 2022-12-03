@@ -1,6 +1,7 @@
 package sk.stu.fei.mobv.ui
 
 import android.Manifest
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.DialogInterface
@@ -8,7 +9,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.*
@@ -117,6 +118,18 @@ class TagBarsListFragment : Fragment() {
             )
         }.apply {
             refreshLayout.setOnRefreshListener { loadData() }
+            checkInBarLottie.addAnimatorListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator) {}
+
+                override fun onAnimationEnd(animation: Animator) {
+                    checkInBarLoading.visibility = View.INVISIBLE
+                }
+
+                override fun onAnimationCancel(animation: Animator) {}
+
+                override fun onAnimationRepeat(animation: Animator) {}
+            })
+
         }
 
         if (checkPermissions()) {
@@ -133,6 +146,8 @@ class TagBarsListFragment : Fragment() {
 
     fun handleCheckInBarButtonClick() {
         if (checkBackgroundPermissions()) {
+            binding.checkInBarLoading.visibility = View.VISIBLE
+            binding.checkInBarLottie.playAnimation()
             tagBarsViewModel.checkMe()
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

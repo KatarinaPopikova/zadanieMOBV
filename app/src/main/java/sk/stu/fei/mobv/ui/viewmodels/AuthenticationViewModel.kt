@@ -8,6 +8,9 @@ import kotlinx.coroutines.launch
 import sk.stu.fei.mobv.domain.User
 import sk.stu.fei.mobv.network.dtos.asDomainModel
 import sk.stu.fei.mobv.repository.Repository
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import kotlin.experimental.and
 
 class AuthenticationViewModel(private val repository: Repository): ViewModel() {
     private val _message = MutableLiveData<String>()
@@ -21,10 +24,12 @@ class AuthenticationViewModel(private val repository: Repository): ViewModel() {
         get() = _loading
 
     fun login(name: String, password: String){
+        val hashedPassword = hashPassword(password) ?: return
+
         viewModelScope.launch {
             _loading.postValue(true)
             repository.loginUser(
-                name,password,
+                name,hashedPassword,
                 { _message.postValue(it) },
                 { user.postValue(it?.asDomainModel()) }
             )
@@ -33,10 +38,11 @@ class AuthenticationViewModel(private val repository: Repository): ViewModel() {
     }
 
     fun signup(name: String, password: String){
+        val hashedPassword = hashPassword(password) ?: return
         viewModelScope.launch {
             _loading.postValue(true)
             repository.registerUser(
-                name,password,
+                name,hashedPassword,
                 { _message.postValue(it) },
                 { user.postValue(it?.asDomainModel()) }
             )
@@ -44,4 +50,25 @@ class AuthenticationViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
+    private fun hashPassword(passwordToHash: String): String? {
+        val salt = "salt"
+
+        try {
+            val md: MessageDigest = MessageDigest.getInstance("SHA-512")
+            md.update(salt.toByteArray())
+            val bytes: ByteArray = md.digest(passwordToHash.toByteArray())
+            val sb = StringBuilder()
+            for (i in bytes.indices) {
+                sb.append(
+                    ((bytes[i] and 0xff.toByte()) + 0x100).toString(16)
+                        .substring(1)
+                )
+            }
+            return sb.toString()
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+            _message.value = "Problém ohľadom hesla."
+            return null
+        }
+    }
 }
