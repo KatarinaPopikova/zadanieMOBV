@@ -16,7 +16,7 @@
     <string name="visitor_count">Počet návštevníkov v bare: %d</string>
     <string name="open_gps">Ukáž na mape</string>
     <string name="open_web">Ukáž na webe</string>
-    <string name="add_friend_data">Pridať priateľa</string>
+    <string name="add_friend_data">Zadaj prihlasovacie meno priateľa</string>
     <string name="enter_friend_login">Zadať prihlasovacie meno priateľa</string>
     <string name="add_friend">Pridať priateľa</string>
     <string name="show_friends">Zobraziť priateľov</string>
@@ -31,5 +31,12 @@
     <string name="fill_name_password">Vyplňte prihlasovacie meno a heslo</string>
     <string name="passwords_be_same">Heslá sa musia zhodovať</string>
     <string name="show_followers">Zobraziť sledovateľov</string>
+    <string name="friends">Priatelia</string>
+    <string name="followers">Sledovatelia</string>
+    <string name="friend_adding">Pridaj pria</string>
+    <string name="bar_detail">Detail baru</string>
+    <string name="bar_list">Zoznam barov</string>
+    <string name="tag_bars_list">Zoznam barov v okolí</string>
+    <string name="tag">Označiť</string>
 
 </resources>

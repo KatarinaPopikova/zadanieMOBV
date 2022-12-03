@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
+    android:label="NavGraph"
     app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/barsListFragment"
         android:name="sk.stu.fei.mobv.ui.BarsListFragment"
-        android:label="BarsListFragment"
-        tools:layout="@layout/fragment_bars_list" >
+        android:label="@string/bar_list"
+        tools:layout="@layout/fragment_bars_list">
         <action
             android:id="@+id/action_barsListFragment_to_barDetailFragment"
             app:destination="@id/barDetailFragment" />
@@ -28,8 +29,8 @@
     <fragment
         android:id="@+id/friendsListFragment"
         android:name="sk.stu.fei.mobv.ui.FriendsListFragment"
-        android:label="FriendsListFragment"
-        tools:layout="@layout/fragment_friends_list" >
+        android:label="@string/followers"
+        tools:layout="@layout/fragment_friends_list">
         <action
             android:id="@+id/action_friendsListFragment_to_barDetailFragment"
             app:destination="@id/barDetailFragment" />
@@ -42,8 +43,8 @@
     <fragment
         android:id="@+id/tagBarsListFragment"
         android:name="sk.stu.fei.mobv.ui.TagBarsListFragment"
-        android:label="TagBarsListFragment"
-        tools:layout="@layout/fragment_tag_bars_list" >
+        android:label="@string/tag_bars_list"
+        tools:layout="@layout/fragment_tag_bars_list">
         <action
             android:id="@+id/action_tagBarsListFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -72,8 +73,8 @@
     <fragment
         android:id="@+id/addFriendFragment"
         android:name="sk.stu.fei.mobv.ui.AddFriendFragment"
-        android:label="fragment_add_friend"
-        tools:layout="@layout/fragment_add_friend" >
+        android:label="@string/add_friend"
+        tools:layout="@layout/fragment_add_friend">
         <action
             android:id="@+id/action_addFriendFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -99,8 +100,8 @@
     <fragment
         android:id="@+id/barDetailFragment"
         android:name="sk.stu.fei.mobv.ui.BarDetailFragment"
-        android:label="BarDetailFragment"
-        tools:layout="@layout/fragment_bar_detail"  >
+        android:label="@string/bar_detail"
+        tools:layout="@layout/fragment_bar_detail">
         <argument
             android:name="bar_id"
             app:argType="long" />
@@ -113,8 +114,8 @@
     <fragment
         android:id="@+id/myFriendsListFragment"
         android:name="sk.stu.fei.mobv.ui.MyFriendsListFragment"
-        android:label="fragment_my_friends_list"
-        tools:layout="@layout/fragment_my_friends_list" >
+        android:label="@string/friends"
+        tools:layout="@layout/fragment_my_friends_list">
         <action
             android:id="@+id/action_myFriendsListFragment_to_loginFragment"
             app:destination="@id/loginFragment"

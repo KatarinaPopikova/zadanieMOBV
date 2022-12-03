@@ -1,5 +1,6 @@
 package sk.stu.fei.mobv.repository
 
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.asLiveData
@@ -236,7 +237,7 @@ class Repository private constructor(
             }
         } catch (ex: IOException) {
             ex.printStackTrace()
-            onError("Login failed, check internet connection")
+            onError(ex.message.toString())
         } catch (ex: Exception) {
             ex.printStackTrace()
             onError("Login in failed, error.")
@@ -289,9 +290,10 @@ class Repository private constructor(
     }
 
 
-    fun getMyFriends(): LiveData<List<Friend>> = Transformations.map(myFriendDao.getMyFriends().asLiveData()) {
-        it.asDomainModelList()
-    }
+    fun getMyFriends(): LiveData<List<Friend>> =
+        Transformations.map(myFriendDao.getMyFriends().asLiveData()) {
+            it.asDomainModelList()
+        }
 
     fun getBarsByNameAsc(): LiveData<List<Bar>> =
         Transformations.map(barDao.getBarsByNameAsc().asLiveData()) {
@@ -344,7 +346,11 @@ class Repository private constructor(
         @Volatile
         private var INSTANCE: Repository? = null
 
-        fun getInstance(service: RestApiService, barDao: BarDao, myFriendDao: MyFriendDao): Repository =
+        fun getInstance(
+            service: RestApiService,
+            barDao: BarDao,
+            myFriendDao: MyFriendDao
+        ): Repository =
             INSTANCE ?: synchronized(this) {
                 INSTANCE
                     ?: Repository(service, barDao, myFriendDao).also { INSTANCE = it }
