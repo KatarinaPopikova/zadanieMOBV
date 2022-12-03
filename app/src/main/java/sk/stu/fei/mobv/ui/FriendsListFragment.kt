@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import sk.stu.fei.mobv.R
 import androidx.navigation.fragment.findNavController
@@ -44,23 +45,33 @@ class FriendsListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val loggedUser = PreferenceData.getInstance().getUserItem(requireContext())
-        if ((loggedUser?.id ?: "").isBlank()) {
+        if (!isUserLoggedIn()) {
             goToLoginScreen()
             return
         }
 
+        friendsViewModel.apply {
+            loading.observe(viewLifecycleOwner) {
+                binding.refreshLayout.isRefreshing = it
+            }
+            message.observe(viewLifecycleOwner) {
+                showShortMessage(it)
+                if (!isUserLoggedIn()) {
+                    goToLoginScreen()
+                }
+            }
+        }
+
         binding.apply {
-            thisFragment = this@FriendsListFragment
             lifecycleOwner = viewLifecycleOwner
             friendsViewModel = this@FriendsListFragment.friendsViewModel
         }.apply {
             friendsListView.adapter = FriendsListItemAdapter(
-                FriendsListItemEventListener { barId: Long? ->
+                FriendsListItemEventListener ({ barId: Long? ->
                     barId?.let {
                         goToBarDetailScreen(barId)
                     }
-                }
+                })
             )
         }.apply {
             refreshLayout.setOnRefreshListener { friendsViewModel!!.loadFriends() }
@@ -75,17 +86,26 @@ class FriendsListFragment : Fragment() {
         _binding = null
     }
 
-    fun goToAddFriendScreen() {
-        findNavController().navigate(R.id.action_friendsListFragment_to_addFriendFragment)
-    }
-
     fun goToBarDetailScreen(barId: Long) {
         findNavController().navigate(
             FriendsListFragmentDirections.actionFriendsListFragmentToBarDetailFragment(barId)
         )
     }
 
+    private fun isUserLoggedIn(): Boolean {
+        val loggedUser = PreferenceData.getInstance().getUserItem(requireContext())
+        return (loggedUser?.id ?: "").isNotBlank()
+    }
+
     private fun goToLoginScreen() {
         findNavController().navigate(R.id.action_friendsListFragment_to_loginFragment)
+    }
+
+    private fun showShortMessage(message: String) {
+        Toast.makeText(
+            requireContext(),
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

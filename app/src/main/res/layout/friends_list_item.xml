@@ -13,6 +13,7 @@
             name="friendsListItemEventListener"
             type="sk.stu.fei.mobv.ui.adapter.FriendsListItemEventListener" />
 
+        <import type="android.view.View" />
     </data>
 
     <RelativeLayout
@@ -32,13 +33,13 @@
 
         <TextView
             android:id="@+id/friend_name"
-            android:text="@{friend.name}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="70dp"
             android:layout_toEndOf="@id/friend_item_icon"
             android:maxLines="1"
             android:paddingTop="16dp"
-            android:paddingEnd="16dp"
+            android:text="@{friend.name}"
             android:textAppearance="?attr/textAppearanceSubtitle1"
             tools:text="@tools:sample/lorem" />
 
@@ -54,6 +55,16 @@
             android:text="@{friend.barName}"
             android:textAppearance="?attr/textAppearanceBody2"
             tools:text="@tools:sample/lorem/random" />
+
+        <ImageView
+            android:id="@+id/delete_friend_icon"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:onClick="@{() -> friendsListItemEventListener.onDeleteItemClick(friend)}"
+            android:padding="16dp"
+            android:src="@drawable/ic_delete_friend"
+            android:visibility="@{friendsListItemEventListener.onDeleteItemClickListener != null ? View.VISIBLE : View.GONE}" />
 
     </RelativeLayout>
 </layout>

@@ -1,7 +1,5 @@
 package sk.stu.fei.mobv.ui
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,29 +8,28 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import sk.stu.fei.mobv.MainApplication
 import sk.stu.fei.mobv.R
-import sk.stu.fei.mobv.databinding.FragmentBarDetailBinding
-import sk.stu.fei.mobv.domain.Bar
+import sk.stu.fei.mobv.databinding.FragmentFriendsListBinding
+import sk.stu.fei.mobv.databinding.FragmentMyFriendsListBinding
 import sk.stu.fei.mobv.helpers.PreferenceData
-import sk.stu.fei.mobv.ui.viewmodels.BarDetailViewModel
+import sk.stu.fei.mobv.ui.adapter.FriendsListItemAdapter
+import sk.stu.fei.mobv.ui.adapter.FriendsListItemEventListener
+import sk.stu.fei.mobv.ui.viewmodels.FriendsViewModel
 import sk.stu.fei.mobv.ui.viewmodels.factory.ViewModelFactory
 
-class BarDetailFragment : Fragment() {
-    private var _binding: FragmentBarDetailBinding? = null
-    private val binding get(): FragmentBarDetailBinding = _binding!!
+class MyFriendsListFragment : Fragment() {
+    private var _binding: FragmentMyFriendsListBinding? = null
+    private val binding get(): FragmentMyFriendsListBinding = _binding!!
 
-    private val navigationArgs: BarDetailFragmentArgs by navArgs()
-
-    private val barDetailViewModel: BarDetailViewModel by lazy {
+    private val friendsViewModel: FriendsViewModel by lazy {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
         ViewModelProvider(
             this,
             ViewModelFactory((activity.application as MainApplication).repository)
-        )[BarDetailViewModel::class.java]
+        )[FriendsViewModel::class.java]
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +40,7 @@ class BarDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentBarDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentMyFriendsListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -53,7 +50,7 @@ class BarDetailFragment : Fragment() {
             return
         }
 
-        barDetailViewModel.apply {
+        friendsViewModel.apply {
             loading.observe(viewLifecycleOwner) {
                 binding.refreshLayout.isRefreshing = it
             }
@@ -66,21 +63,45 @@ class BarDetailFragment : Fragment() {
         }
 
         binding.apply {
+            thisFragment = this@MyFriendsListFragment
             lifecycleOwner = viewLifecycleOwner
-            barDetailViewModel = this@BarDetailFragment.barDetailViewModel
-            thisFragment = this@BarDetailFragment
+            friendsViewModel = this@MyFriendsListFragment.friendsViewModel
         }.apply {
-            refreshLayout.setOnRefreshListener {
-                this@BarDetailFragment.barDetailViewModel.loadBar(navigationArgs.barId)
-            }
+            friendsListView.adapter = FriendsListItemAdapter(
+                FriendsListItemEventListener (
+                    { _: Long? -> },
+                    {
+                        friendsViewModel!!.deleteFriend(it)
+                    }
+                )
+            )
+        }.apply {
+            refreshLayout.setOnRefreshListener { friendsViewModel!!.refreshMyFriends() }
         }
 
-        barDetailViewModel.loadBar(navigationArgs.barId)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        val loggedUser = PreferenceData.getInstance().getUserItem(requireContext())
+        return (loggedUser?.id ?: "").isNotBlank()
+    }
+
+    fun goToAddFriendScreen() {
+        findNavController().navigate(R.id.action_myFriendsListFragment_to_addFriendFragment)
+    }
+
+    fun goToFriendListScreen() {
+        findNavController().navigate(R.id.action_myFriendsListFragment_to_friendsListFragment)
+    }
+
+    fun goToLoginScreen() {
+        findNavController().navigate(R.id.action_myFriendsListFragment_to_loginFragment)
     }
 
     private fun showShortMessage(message: String) {
@@ -91,28 +112,7 @@ class BarDetailFragment : Fragment() {
         ).show()
     }
 
-    private fun isUserLoggedIn(): Boolean {
-        val loggedUser = PreferenceData.getInstance().getUserItem(requireContext())
-        return (loggedUser?.id ?: "").isNotBlank()
-    }
 
-    fun goToLoginScreen() {
-        findNavController().navigate(R.id.action_barDetailFragment_to_loginFragment)
-    }
 
-    fun showOnMap() {
-        val bar: Bar? = barDetailViewModel.bar.value
-        startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(
-                    "geo:0,0,?q=" +
-                            "${bar?.latitude ?: 0}," +
-                            "${bar?.longitude ?: 0}" +
-                            "(${bar?.name ?: ""})"
-                )
-            )
-        )
-    }
 
 }

@@ -1,6 +1,8 @@
 package sk.stu.fei.mobv.network.dtos
 
 import com.squareup.moshi.Json
+import sk.stu.fei.mobv.database.entities.BarEntity
+import sk.stu.fei.mobv.database.entities.MyFriendEntity
 import sk.stu.fei.mobv.domain.Friend
 
 data class FriendDto(
@@ -28,5 +30,17 @@ fun FriendDto.asDomainModel(): Friend {
 fun List<FriendDto>.asDomainModelList(): List<Friend> {
     return map {
         it.asDomainModel()
+    }
+}
+fun FriendDto.asEntityModel(): MyFriendEntity {
+    return MyFriendEntity(
+        id = id,
+        name = name
+    )
+}
+
+fun List<FriendDto>.asEntityModelList(): List<MyFriendEntity> {
+    return map {
+        it.asEntityModel()
     }
 }

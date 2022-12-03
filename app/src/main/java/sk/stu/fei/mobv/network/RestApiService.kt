@@ -71,9 +71,17 @@ interface RestApiService {
     @Headers("mobv-auth: accept")
     suspend fun getFriends() : Response<List<FriendDto>>
 
+    @GET("contact/friends.php")
+    @Headers("mobv-auth: accept")
+    suspend fun getMyFriends() : Response<List<FriendDto>>
+
     @POST("contact/message.php")
     @Headers("mobv-auth: accept")
     suspend fun addFriend(@Body friend: FriendMessageBody) : Response<Any>
+
+    @POST("contact/delete.php")
+    @Headers("mobv-auth: accept")
+    suspend fun deleteFriend(@Body friend: FriendMessageBody) : Response<Any>
 
     companion object{
         const val BASE_URL = "https://zadanie.mpage.sk/"

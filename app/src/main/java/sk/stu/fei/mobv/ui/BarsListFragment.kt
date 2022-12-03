@@ -79,8 +79,7 @@ class BarsListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val loggedUser = PreferenceData.getInstance().getUserItem(requireContext())
-        if ((loggedUser?.id ?: "").isBlank()) {
+        if (!isUserLoggedIn()) {
             goToLoginScreen()
             return
         }
@@ -93,6 +92,9 @@ class BarsListFragment : Fragment() {
             }
             message.observe(viewLifecycleOwner) {
                 showShortMessage(it)
+                if (!isUserLoggedIn()) {
+                    goToLoginScreen()
+                }
             }
         }
 
@@ -197,8 +199,8 @@ class BarsListFragment : Fragment() {
         }
     }
 
-    fun goToFriendsListScreen() {
-        findNavController().navigate(R.id.action_barsListFragment_to_friendsListFragment)
+    fun goToMyFriendsListScreen() {
+        findNavController().navigate(R.id.action_barsListFragment_to_myFriendsListFragment)
     }
 
     fun goToBarDetailScreen(barId: Long) {
@@ -213,6 +215,11 @@ class BarsListFragment : Fragment() {
 
     fun goToLoginScreen() {
         findNavController().navigate(R.id.action_barsListFragment_to_loginFragment)
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        val loggedUser = PreferenceData.getInstance().getUserItem(requireContext())
+        return (loggedUser?.id ?: "").isNotBlank()
     }
 
     private fun showShortMessage(message: String) {

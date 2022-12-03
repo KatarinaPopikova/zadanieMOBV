@@ -42,8 +42,7 @@ class RegisterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val loggedUser = PreferenceData.getInstance().getUserItem(requireContext())
-        if ((loggedUser?.id ?: "").isNotBlank()) {
+        if (isUserLoggedIn()) {
             goToBarsListScreen()
             return
         }
@@ -95,6 +94,11 @@ class RegisterFragment : Fragment() {
 
     private fun goToBarsListScreen() {
         findNavController().navigate(R.id.action_registerFragment_to_barsListFragment)
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        val loggedUser = PreferenceData.getInstance().getUserItem(requireContext())
+        return (loggedUser?.id ?: "").isNotBlank()
     }
 
     private fun showShortMessage(message: String) {

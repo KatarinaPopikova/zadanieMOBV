@@ -17,13 +17,13 @@
             android:id="@+id/action_barsListFragment_to_tagBarsListFragment"
             app:destination="@id/tagBarsListFragment" />
         <action
-            android:id="@+id/action_barsListFragment_to_friendsListFragment"
-            app:destination="@id/friendsListFragment" />
-        <action
             android:id="@+id/action_barsListFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:popUpTo="@id/barsListFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_barsListFragment_to_myFriendsListFragment"
+            app:destination="@id/myFriendsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/friendsListFragment"
@@ -33,9 +33,6 @@
         <action
             android:id="@+id/action_friendsListFragment_to_barDetailFragment"
             app:destination="@id/barDetailFragment" />
-        <action
-            android:id="@+id/action_friendsListFragment_to_addFriendFragment"
-            app:destination="@id/addFriendFragment" />
         <action
             android:id="@+id/action_friendsListFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -112,5 +109,22 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/barsListFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/myFriendsListFragment"
+        android:name="sk.stu.fei.mobv.ui.MyFriendsListFragment"
+        android:label="fragment_my_friends_list"
+        tools:layout="@layout/fragment_my_friends_list" >
+        <action
+            android:id="@+id/action_myFriendsListFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/barsListFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_myFriendsListFragment_to_friendsListFragment"
+            app:destination="@id/friendsListFragment" />
+        <action
+            android:id="@+id/action_myFriendsListFragment_to_addFriendFragment"
+            app:destination="@id/addFriendFragment" />
     </fragment>
 </navigation>

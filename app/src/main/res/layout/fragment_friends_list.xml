@@ -5,10 +5,6 @@
 
     <data>
         <variable
-            name="thisFragment"
-            type="sk.stu.fei.mobv.ui.FriendsListFragment" />
-
-        <variable
             name="friendsViewModel"
             type="sk.stu.fei.mobv.ui.viewmodels.FriendsViewModel" />
     </data>
@@ -38,14 +34,5 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_friend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="16dp"
-            android:contentDescription="@string/add_friend"
-            android:onClick="@{() -> thisFragment.goToAddFriendScreen()}"
-            android:src="@drawable/ic_add_friend" />
     </FrameLayout>
 </layout>

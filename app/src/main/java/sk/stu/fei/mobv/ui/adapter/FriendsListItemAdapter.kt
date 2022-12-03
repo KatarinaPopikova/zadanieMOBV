@@ -23,7 +23,6 @@ class FriendsListItemAdapter(
 
     }
 
-
     companion object DiffCallback : DiffUtil.ItemCallback<Friend>() {
         override fun areItemsTheSame(oldItem: Friend, newItem: Friend): Boolean {
             return oldItem.id == newItem.id
@@ -50,7 +49,10 @@ class FriendsListItemAdapter(
     }
 }
 
-class FriendsListItemEventListener(val onItemClickListener: (barId: Long?) -> Unit) {
+class FriendsListItemEventListener(
+    val onItemClickListener: (barId: Long?) -> Unit,
+    val onDeleteItemClickListener: ((myFriend: Friend) -> Unit)? = null
+) {
     fun onItemClick(barId: Long?) = onItemClickListener(barId)
-
+    fun onDeleteItemClick(myFriend: Friend) = onDeleteItemClickListener?.let { it(myFriend) }
 }

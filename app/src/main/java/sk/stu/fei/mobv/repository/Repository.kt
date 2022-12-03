@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.asLiveData
 import sk.stu.fei.mobv.database.daos.BarDao
+import sk.stu.fei.mobv.database.daos.MyFriendDao
 import sk.stu.fei.mobv.database.entities.asDomainModelList
 import sk.stu.fei.mobv.domain.Bar
 import sk.stu.fei.mobv.domain.Friend
@@ -14,7 +15,8 @@ import java.io.IOException
 
 class Repository private constructor(
     private val service: RestApiService,
-    private val barDao: BarDao
+    private val barDao: BarDao,
+    private val myFriendDao: MyFriendDao
 ) {
     suspend fun registerUser(
         name: String,
@@ -202,6 +204,33 @@ class Repository private constructor(
             )
             if (resp.isSuccessful) {
                 onSuccess("Friend was succesfully added")
+                refreshMyFriendsList { onError(it) }
+            } else {
+                onError("Failed to login, try again later.")
+            }
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            onError("Login failed, check internet connection")
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            onError("Login in failed, error.")
+        }
+    }
+
+    suspend fun deleteMyFriend(
+        myFriend: Friend,
+        onError: (error: String) -> Unit,
+        onSuccess: (success: String) -> Unit
+    ) {
+        try {
+            val resp = service.deleteFriend(
+                FriendMessageBody(
+                    myFriend.name
+                )
+            )
+            if (resp.isSuccessful) {
+                onSuccess("Friend was succesfully added")
+                myFriendDao.deleteMyFriend(myFriend.asEntityModel())
             } else {
                 onError("Failed to login, try again later.")
             }
@@ -235,6 +264,33 @@ class Repository private constructor(
             onError("Failed to load bars, error.")
         }
         return friends
+    }
+
+    suspend fun refreshMyFriendsList(
+        onError: (error: String) -> Unit
+    ) {
+        try {
+            val response = service.getMyFriends()
+            if (response.isSuccessful) {
+                response.body()?.let { myFriends ->
+                    myFriendDao.deleteMyFriends()
+                    myFriendDao.insertMyFriends(myFriends.asEntityModelList())
+                } ?: onError("Failed to load friends")
+            } else {
+                onError("Failed to read friends")
+            }
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+            onError("Failed to load friends, check internet connection")
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            onError("Failed to load friends, error.")
+        }
+    }
+
+
+    fun getMyFriends(): LiveData<List<Friend>> = Transformations.map(myFriendDao.getMyFriends().asLiveData()) {
+        it.asDomainModelList()
     }
 
     fun getBarsByNameAsc(): LiveData<List<Bar>> =
@@ -288,10 +344,10 @@ class Repository private constructor(
         @Volatile
         private var INSTANCE: Repository? = null
 
-        fun getInstance(service: RestApiService, barDao: BarDao): Repository =
+        fun getInstance(service: RestApiService, barDao: BarDao, myFriendDao: MyFriendDao): Repository =
             INSTANCE ?: synchronized(this) {
                 INSTANCE
-                    ?: Repository(service, barDao).also { INSTANCE = it }
+                    ?: Repository(service, barDao, myFriendDao).also { INSTANCE = it }
             }
     }
 }

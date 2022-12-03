@@ -6,57 +6,57 @@
     <data>
         <variable
             name="thisFragment"
-            type="sk.stu.fei.mobv.ui.BarsListFragment" />
-
+            type="sk.stu.fei.mobv.ui.MyFriendsListFragment" />
 
         <variable
-            name="barsViewModel"
-            type="sk.stu.fei.mobv.ui.viewmodels.BarsViewModel" />
+            name="friendsViewModel"
+            type="sk.stu.fei.mobv.ui.viewmodels.FriendsViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".ui.BarsListFragment">
+            tools:context=".ui.MyFriendsListFragment">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/bars_list_view"
+                android:id="@+id/friends_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:padding="16dp"
                 android:scrollbars="vertical"
                 app:layoutManager="LinearLayoutManager"
-                app:barListData="@{barsViewModel.bars}"
-                tools:listitem="@layout/bars_list_item" />
+                app:friendListData="@{friendsViewModel.myFriends}"
+                tools:listitem="@layout/friends_list_item" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/tag_bar"
+            android:id="@+id/add_friend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
-            android:contentDescription="@string/tag_bar"
-            android:onClick="@{() -> thisFragment.handleShowNearbyBarsClick()}"
-            android:src="@drawable/ic_tag_bar" />
+            android:contentDescription="@string/add_friend"
+            android:onClick="@{() -> thisFragment.goToAddFriendScreen()}"
+            android:src="@drawable/ic_add_friend" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/show_friends"
+            android:id="@+id/friend_list_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:layout_marginBottom="80dp"
             android:layout_marginEnd="16dp"
-            android:contentDescription="@string/show_friends"
-            android:onClick="@{() -> thisFragment.goToMyFriendsListScreen()}"
-            android:src="@drawable/ic_friends" />
+            android:layout_marginBottom="80dp"
+            android:contentDescription="@string/show_followers"
+            android:onClick="@{() -> thisFragment.goToFriendListScreen()}"
+            android:src="@drawable/ic_followers" />
     </FrameLayout>
 </layout>

@@ -79,8 +79,7 @@ class TagBarsListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val loggedUser = PreferenceData.getInstance().getUserItem(requireContext())
-        if ((loggedUser?.id ?: "").isBlank()) {
+        if (!isUserLoggedIn()) {
             goToLoginScreen()
             return
         }
@@ -91,6 +90,9 @@ class TagBarsListFragment : Fragment() {
             }
             message.observe(viewLifecycleOwner) {
                 showShortMessage(it)
+                if (!isUserLoggedIn()) {
+                    goToLoginScreen()
+                }
             }
             checkedIn.observe(viewLifecycleOwner) {
                 if (it) {
@@ -137,6 +139,11 @@ class TagBarsListFragment : Fragment() {
                 permissionDialog()
             }
         }
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        val loggedUser = PreferenceData.getInstance().getUserItem(requireContext())
+        return (loggedUser?.id ?: "").isNotBlank()
     }
 
     private fun goToLoginScreen() {
