@@ -3,6 +3,7 @@ package sk.stu.fei.mobv.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -114,5 +115,22 @@ class BarDetailFragment : Fragment() {
             )
         )
     }
+
+    fun showOnWeb() {
+        val bar: Bar? = barDetailViewModel.bar.value
+        var web = bar?.webPage ?: return
+        if(web.startsWith("http://")){
+            web = web.replaceRange(4,4,"s")
+        }
+        if (web.startsWith("https://")) {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(web)
+                )
+            )
+        }
+    }
+
 
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -13,6 +12,8 @@
         <variable
             name="barsListItemEventListener"
             type="sk.stu.fei.mobv.ui.adapter.BarsListItemEventListener" />
+
+        <import type="android.view.View" />
 
     </data>
 
@@ -26,36 +27,61 @@
             android:id="@+id/bar_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:layout_gravity="center_vertical"
+            android:maxLines="1"
             android:paddingTop="16dp"
+            android:paddingStart="25dp"
             android:paddingEnd="16dp"
             android:text="@{bar.name}"
             android:textAppearance="?attr/textAppearanceSubtitle1"
             tools:text="@tools:sample/lorem" />
 
+        <ImageView
+            android:id="@+id/visitor_count_icon"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_below="@id/bar_name"
+            android:paddingVertical="16dp"
+            android:src="@drawable/ic_friends"
+            android:visibility="@{bar.usersCount != null ? View.VISIBLE : View.GONE}"
+            android:contentDescription="@string/friends_count" />
+
         <TextView
             android:id="@+id/visitor_count"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/bar_name"
             android:layout_gravity="center_vertical"
-            android:maxLines="2"
-            android:paddingEnd="16dp"
+            android:layout_toEndOf="@id/visitor_count_icon"
+            android:maxLines="1"
+            android:paddingVertical="25dp"
             android:text='@{bar.usersCount != null ? @string/visitor_count(bar.usersCount) : ""}'
             android:textAppearance="?attr/textAppearanceBody2"
-            tools:text="@tools:sample/lorem/random" />
+            tools:text="@tools:sample/lorem" />
+
+
+        <ImageView
+            android:id="@+id/distance_icon"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_below="@id/bar_name"
+            android:layout_toEndOf="@id/visitor_count"
+            android:paddingVertical="16dp"
+            android:src="@drawable/ic_location"
+            android:visibility="@{bar.distance != null ? View.VISIBLE : View.GONE}"
+            android:contentDescription="@string/distance" />
 
         <TextView
             android:id="@+id/distance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/visitor_count"
+            android:layout_below="@id/bar_name"
             android:layout_gravity="center_vertical"
-            android:paddingEnd="16dp"
-            android:text='@{bar.distance != null ? String.format("%.2f m",bar.distance) : ""}'
+            android:layout_toEndOf="@id/distance_icon"
             android:maxLines="1"
+            android:paddingVertical="25dp"
+            android:text='@{bar.distance != null ? String.format("%.2f m",bar.distance) : ""}'
             android:textAppearance="?attr/textAppearanceBody2"
-            />
+            tools:text="@tools:sample/lorem" />
     </RelativeLayout>
 </layout>

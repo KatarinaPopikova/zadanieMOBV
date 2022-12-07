@@ -13,7 +13,7 @@
     <string name="logout">Odhlásiť sa</string>
     <string name="logination">Prihlásenie</string>
     <string name="bar_name">Názov podniku</string>
-    <string name="visitor_count">Počet návštevníkov v bare: %d</string>
+    <string name="visitor_count">%d</string>
     <string name="open_gps">Ukáž na mape</string>
     <string name="open_web">Ukáž na webe</string>
     <string name="add_friend_data">Zadaj prihlasovacie meno priateľa</string>
@@ -38,5 +38,12 @@
     <string name="bar_list">Zoznam barov</string>
     <string name="tag_bars_list">Zoznam barov v okolí</string>
     <string name="tag">Označiť</string>
+    <string name="friend_item_icon">friend item icon</string>
+    <string name="visitor_count_string">Počet priateľov</string>
+    <string name="print_location">(%2f, %2f)</string>
+    <string name="phone_number">telefónne číslo</string>
+    <string name="distance">Vzdialenosť</string>
+    <string name="delete_friend">Vymazať priateľa</string>
+    <string name="friends_count">Počet návštevníkov</string>
 
 </resources>

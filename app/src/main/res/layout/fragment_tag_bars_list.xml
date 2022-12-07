@@ -12,6 +12,7 @@
         <variable
             name="tagBarsViewModel"
             type="sk.stu.fei.mobv.ui.viewmodels.TagBarsViewModel" />
+
         <import type="android.view.View" />
 
     </data>
@@ -33,27 +34,35 @@
 
                 <TextView
                     android:id="@+id/bar_name"
-                    style="@style/TextAppearance.AppCompat.Medium"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingEnd="16dp"
+                    android:layout_marginTop="16dp"
                     android:paddingStart="16dp"
-                    android:paddingTop="16dp"
+                    android:paddingEnd="16dp"
                     android:text="@{tagBarsViewModel.myBar.name}"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textSize="30sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Bar" />
+
+                <ImageView
+                    android:id="@+id/distance_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:contentDescription="@string/distance"
+                    android:src="@drawable/ic_location"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/bar_name" />
 
                 <TextView
                     android:id="@+id/type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
                     android:text='@{tagBarsViewModel.myBar.distance != null ? String.format("%.2f m",tagBarsViewModel.myBar.distance) : ""}'
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/distance_icon"
                     app:layout_constraintTop_toBottomOf="@id/bar_name"
-                    tools:text="Vzdialenost" />
-
+                    tools:text="@string/distance" />
 
 
                 <com.google.android.material.button.MaterialButton

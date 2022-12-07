@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -29,7 +28,8 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:padding="16dp"
-            android:src="@drawable/ic_person" />
+            android:src="@drawable/ic_person"
+            android:contentDescription="@string/friend_item_icon" />
 
         <TextView
             android:id="@+id/friend_name"
@@ -52,6 +52,7 @@
             android:layout_toEndOf="@id/friend_item_icon"
             android:maxLines="2"
             android:paddingEnd="16dp"
+            android:paddingStart="16dp"
             android:text="@{friend.barName}"
             android:textAppearance="?attr/textAppearanceBody2"
             tools:text="@tools:sample/lorem/random" />
@@ -64,7 +65,8 @@
             android:onClick="@{() -> friendsListItemEventListener.onDeleteItemClick(friend)}"
             android:padding="16dp"
             android:src="@drawable/ic_delete_friend"
-            android:visibility="@{friendsListItemEventListener.onDeleteItemClickListener != null ? View.VISIBLE : View.GONE}" />
+            android:visibility="@{friendsListItemEventListener.onDeleteItemClickListener != null ? View.VISIBLE : View.GONE}"
+            android:contentDescription="@string/delete_friend" />
 
     </RelativeLayout>
 </layout>
