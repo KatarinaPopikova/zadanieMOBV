@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import sk.stu.fei.mobv.MainApplication
 import sk.stu.fei.mobv.R
-import sk.stu.fei.mobv.databinding.FragmentFriendsListBinding
 import sk.stu.fei.mobv.databinding.FragmentMyFriendsListBinding
 import sk.stu.fei.mobv.helpers.PreferenceData
 import sk.stu.fei.mobv.ui.adapter.FriendsListItemAdapter
@@ -55,7 +54,10 @@ class MyFriendsListFragment : Fragment() {
                 binding.refreshLayout.isRefreshing = it
             }
             message.observe(viewLifecycleOwner) {
-                showShortMessage(it)
+                if (it.isNotEmpty()) {
+                    showShortMessage(it)
+                    message.value = ""
+                }
                 if (!isUserLoggedIn()) {
                     goToLoginScreen()
                 }
@@ -100,7 +102,7 @@ class MyFriendsListFragment : Fragment() {
         findNavController().navigate(R.id.action_myFriendsListFragment_to_friendsListFragment)
     }
 
-    fun goToLoginScreen() {
+    private fun goToLoginScreen() {
         findNavController().navigate(R.id.action_myFriendsListFragment_to_loginFragment)
     }
 

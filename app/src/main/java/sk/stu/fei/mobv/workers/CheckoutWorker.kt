@@ -10,7 +10,7 @@ import sk.stu.fei.mobv.R
 import sk.stu.fei.mobv.network.BarMessageBody
 import sk.stu.fei.mobv.network.RestApiService
 
-class CheckoutWorker(val appContext: Context, workerParams: WorkerParameters) :
+class CheckoutWorker(private val appContext: Context, workerParams: WorkerParameters) :
     CoroutineWorker(appContext, workerParams) {
 
     override suspend fun getForegroundInfo(): ForegroundInfo {

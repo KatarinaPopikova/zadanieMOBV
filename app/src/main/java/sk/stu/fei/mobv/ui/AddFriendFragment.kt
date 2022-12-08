@@ -79,7 +79,7 @@ class AddFriendFragment : Fragment() {
         if (friendName.isNotEmpty()) {
             friendsViewModel.addFriend(friendName)
         } else {
-            showShortMessage("Vyplnte meno kamarata")
+            showShortMessage(getString(R.string.fill_friend_name))
         }
     }
 
@@ -91,7 +91,7 @@ class AddFriendFragment : Fragment() {
         ).show()
     }
 
-    fun goToLoginScreen(){
+    private fun goToLoginScreen(){
         findNavController().navigate(R.id.action_addFriendFragment_to_loginFragment)
     }
 

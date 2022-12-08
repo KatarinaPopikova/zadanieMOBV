@@ -36,6 +36,7 @@
                 android:id="@+id/bar_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
                 android:hint="@string/bar_name"
                 android:minHeight="20dp"
                 android:padding="16dp"
@@ -43,33 +44,49 @@
                 android:textSize="30sp"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/bar_lottie"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_margin="20dp"
+                android:paddingBottom="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bar_name"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/bar" />
 
             <ImageView
                 android:id="@+id/visitor_count_icon"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="10dp"
                 android:layout_marginStart="20dp"
                 android:contentDescription="@string/visitor_count_string"
                 android:src="@drawable/ic_friends"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bar_name"
+                app:layout_constraintTop_toBottomOf="@id/bar_lottie"
                 app:tint="?attr/colorSecondary" />
 
             <TextView
                 android:id="@+id/visitor_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
                 android:hint="@{barDetailViewModel.bar.usersCount.toString()}"
-                android:padding="16dp"
+                android:padding="11dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/visitor_count_icon"
-                app:layout_constraintTop_toBottomOf="@id/bar_name" />
+                app:layout_constraintTop_toBottomOf="@id/bar_lottie" />
 
 
             <ImageView
                 android:id="@+id/open_web_icon"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="10dp"
+
                 android:layout_marginStart="20dp"
                 android:contentDescription="@string/open_web"
                 android:onClick="@{() -> thisFragment.showOnWeb()}"
@@ -82,17 +99,19 @@
                 android:id="@+id/open_web"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
                 android:layout_marginEnd="20dp"
-                android:hint='@{barDetailViewModel.bar.webPage != null ? barDetailViewModel.bar.webPage: "?"}'
-                android:padding="16dp"
+                android:hint='@{barDetailViewModel.bar.webPage != null ? barDetailViewModel.bar.webPage: "-"}'
+                android:padding="11dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/open_web_icon"
                 app:layout_constraintTop_toBottomOf="@id/visitor_count" />
 
             <ImageView
                 android:id="@+id/open_gps_button_icon"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="10dp"
                 android:layout_marginStart="20dp"
                 android:contentDescription="@string/open_gps"
                 android:onClick="@{() -> thisFragment.showOnMap()}"
@@ -105,16 +124,18 @@
                 android:id="@+id/open_gps_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
                 android:hint='@{@string/print_location(barDetailViewModel.bar.latitude,barDetailViewModel.bar.longitude)}'
-                android:padding="16dp"
+                android:padding="11dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/open_web_icon"
                 app:layout_constraintTop_toBottomOf="@id/open_web_icon" />
 
             <ImageView
                 android:id="@+id/phone_icon"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="10dp"
                 android:layout_marginStart="20dp"
                 android:contentDescription="@string/phone_number"
                 android:src="@drawable/ic_phone"
@@ -126,8 +147,9 @@
                 android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint='@{barDetailViewModel.bar.phoneNumber != null ? barDetailViewModel.bar.phoneNumber : "?" }'
-                android:padding="16dp"
+                android:layout_marginVertical="10dp"
+                android:hint='@{barDetailViewModel.bar.phoneNumber != null ? barDetailViewModel.bar.phoneNumber : "-" }'
+                android:padding="11.5dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@id/phone_icon"
                 app:layout_constraintTop_toBottomOf="@id/open_gps_button_icon" />

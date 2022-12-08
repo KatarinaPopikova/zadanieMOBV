@@ -15,7 +15,6 @@ import sk.stu.fei.mobv.helpers.PreferenceData
 import sk.stu.fei.mobv.ui.adapter.FriendsListItemAdapter
 import sk.stu.fei.mobv.ui.adapter.FriendsListItemEventListener
 import sk.stu.fei.mobv.ui.viewmodels.FriendsViewModel
-import sk.stu.fei.mobv.ui.viewmodels.TagBarsViewModel
 import sk.stu.fei.mobv.ui.viewmodels.factory.ViewModelFactory
 
 class FriendsListFragment : Fragment() {
@@ -86,7 +85,7 @@ class FriendsListFragment : Fragment() {
         _binding = null
     }
 
-    fun goToBarDetailScreen(barId: Long) {
+    private fun goToBarDetailScreen(barId: Long) {
         findNavController().navigate(
             FriendsListFragmentDirections.actionFriendsListFragmentToBarDetailFragment(barId)
         )

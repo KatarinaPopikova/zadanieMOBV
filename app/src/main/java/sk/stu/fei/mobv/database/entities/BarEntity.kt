@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import sk.stu.fei.mobv.domain.Bar
-import sk.stu.fei.mobv.network.dtos.BarDto
 
 @Entity(tableName = "bars")
 class BarEntity(

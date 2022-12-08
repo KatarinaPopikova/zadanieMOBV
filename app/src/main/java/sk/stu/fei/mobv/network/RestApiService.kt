@@ -84,7 +84,7 @@ interface RestApiService {
     suspend fun deleteFriend(@Body friend: FriendMessageBody) : Response<Void>
 
     companion object{
-        const val BASE_URL = "https://zadanie.mpage.sk/"
+        private const val BASE_URL = "https://zadanie.mpage.sk/"
 
         fun create(context: Context): RestApiService {
             val client = OkHttpClient.Builder()

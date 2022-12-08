@@ -77,7 +77,6 @@ class LoginFragment : Fragment() {
         val loginName = binding.loginNameText.text.toString()
         val password = binding.passwordText.text.toString()
         if (loginName.isNotBlank() && password.isNotBlank()) {
-            //it.findNavController().popBackStack(R.id.bars_fragment,false)
             authenticationViewModel.login(
                 loginName,
                 password

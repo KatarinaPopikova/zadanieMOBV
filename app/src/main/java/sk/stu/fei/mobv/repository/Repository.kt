@@ -1,6 +1,5 @@
 package sk.stu.fei.mobv.repository
 
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.asLiveData
@@ -31,22 +30,22 @@ class Repository private constructor(
                 response.body()?.let { user ->
                     if (user.id == "-1") {
                         onStatus(null)
-                        onError("Name already exists. Choose another.")
+                        onError("Toto meno už existuje.")
                     } else {
                         onStatus(user)
                     }
                 }
             } else {
-                onError("Failed to sign up, try again later.")
+                onError("Nastala chyba pri prihlásení.")
                 onStatus(null)
             }
         } catch (ex: IOException) {
             ex.printStackTrace()
-            onError("Sign up failed, check internet connection")
+            onError("Prihlasovanie zlyhalo. Skontrolujte internetové pripojenie.")
             onStatus(null)
         } catch (ex: Exception) {
             ex.printStackTrace()
-            onError("Sign up failed, error.")
+            onError("Error: zlyhanie prihlásenia.")
             onStatus(null)
         }
     }
@@ -63,22 +62,22 @@ class Repository private constructor(
                 response.body()?.let { user ->
                     if (user.id == "-1") {
                         onStatus(null)
-                        onError("Wrong name or password.")
+                        onError("Nesprávne prihlasovanie meno alebo heslo.")
                     } else {
                         onStatus(user)
                     }
                 }
             } else {
-                onError("Failed to login, try again later.")
+                onError("Nastala chyba pri prihlásení.")
                 onStatus(null)
             }
         } catch (ex: IOException) {
             ex.printStackTrace()
-            onError("Login failed, check internet connection")
+            onError("Prihlasovanie zlyhalo. Skontrolujte internetové pripojenie.")
             onStatus(null)
         } catch (ex: Exception) {
             ex.printStackTrace()
-            onError("Login in failed, error.")
+            onError("Error: zlyhanie prihlásenia.")
             onStatus(null)
         }
     }
@@ -92,16 +91,16 @@ class Repository private constructor(
                 response.body()?.let { bars ->
                     barDao.deleteBars()
                     barDao.insertBars(bars.asEntityModelList())
-                } ?: onError("Failed to load bars")
+                } ?: onError("Načítanie barov zlyhalo.")
             } else {
-                onError("Failed to read bars")
+                onError("Zlyhanie pri čítaní barov")
             }
         } catch (ex: IOException) {
             ex.printStackTrace()
-            onError("Failed to load bars, check internet connection")
+            onError("Načítanie barov zlyhalo. Skontrolujte internetové pripojenie.")
         } catch (ex: Exception) {
             ex.printStackTrace()
-            onError("Failed to load bars, error.")
+            onError("Error: zlyhalo načítavanie barov.")
         }
     }
 
@@ -118,16 +117,16 @@ class Repository private constructor(
                     if (tagBars.tagBarList.isNotEmpty()) {
                         bar = tagBars.tagBarList[0].asDomainModel()
                     }
-                } ?: onError("Failed to load bars")
+                } ?: onError("Načítanie baru zlyhalo.")
             } else {
-                onError("Failed to read bars")
+                onError("Zlyhanie pri čítaní baru.")
             }
         } catch (ex: IOException) {
             ex.printStackTrace()
-            onError("Failed to load bars, check internet connection")
+            onError("Načítanie baru zlyhalo. Skontrolujte internetové pripojenie.")
         } catch (ex: Exception) {
             ex.printStackTrace()
-            onError("Failed to load bars, error.")
+            onError("Error: zlyhalo načítavanie baru.")
         }
         return bar
     }
@@ -149,16 +148,16 @@ class Repository private constructor(
                         }
                     }
                     bars = bars.filter { it.name.isNotBlank() }.sortedBy { it.distance }
-                } ?: onError("Failed to load bars")
+                } ?: onError("Načítanie blízkych barov zlyhalo.")
             } else {
-                onError("Failed to read bars")
+                onError("Zlyhanie pri čítaní blízkych barov.")
             }
         } catch (ex: IOException) {
             ex.printStackTrace()
-            onError("Failed to load bars, check internet connection")
+            onError("Načítanie blízkych barov zlyhalo. Skontrolujte internetové pripojenie.")
         } catch (ex: Exception) {
             ex.printStackTrace()
-            onError("Failed to load bars, error.")
+            onError("Error: zlyhalo načítavanie blízkych barov.")
         }
         return bars
     }
@@ -181,14 +180,14 @@ class Repository private constructor(
             if (resp.isSuccessful) {
                 onSuccess(true)
             } else {
-                onError("Failed to login, try again later.")
+                onError("Označenie do baru zlyhalo.")
             }
         } catch (ex: IOException) {
             ex.printStackTrace()
-            onError("Login failed, check internet connection")
+            onError("Označenie do baru zlyhalo. Skontrolujte internetové pripojenie.")
         } catch (ex: Exception) {
             ex.printStackTrace()
-            onError("Login in failed, error.")
+            onError("Error: zlyhalo označenie do podniku")
         }
     }
 
@@ -204,17 +203,17 @@ class Repository private constructor(
                 )
             )
             if (resp.isSuccessful) {
-                onSuccess("Friend was succesfully added")
+                onSuccess("Priateľ bol úspešne pridaný.")
                 refreshMyFriendsList { onError(it) }
             } else {
-                onError("Failed to login, try again later.")
+                onError("Pridanie priateľa bolo neúspešné.")
             }
         } catch (ex: IOException) {
             ex.printStackTrace()
-            onError("Login failed, check internet connection")
+            onError("Pridanie bolo neúspešné. Skontrolujte internetové pripojenie.")
         } catch (ex: Exception) {
             ex.printStackTrace()
-            onError("Login in failed, error.")
+            onError("Error: Pridanie priateľa zlyhalo.")
         }
     }
 
@@ -230,17 +229,17 @@ class Repository private constructor(
                 )
             )
             if (resp.isSuccessful) {
-                onSuccess("Friend was succesfully added")
+                onSuccess("Priateľ bol úspešné odstránený.")
                 myFriendDao.deleteMyFriend(myFriend.asEntityModel())
             } else {
-                onError("Failed to login, try again later.")
+                onError("Nepodarilo sa odstrániť priateľa.")
             }
         } catch (ex: IOException) {
             ex.printStackTrace()
-            onError(ex.message.toString())
+            onError("Odstránenie bolo neúspešné. Skontrolujte internetové pripojenie.")
         } catch (ex: Exception) {
             ex.printStackTrace()
-            onError("Login in failed, error.")
+            onError("Error: Odstránenie priateľa zlyhalo.")
         }
     }
 
@@ -253,16 +252,16 @@ class Repository private constructor(
             if (response.isSuccessful) {
                 response.body()?.let { friendsDto ->
                     friends = friendsDto.asDomainModelList()
-                } ?: onError("Failed to load bars")
+                } ?: onError("Zlyhalo načítanie sledujúcich.")
             } else {
-                onError("Failed to read bars")
+                onError("Chyba pri čítaní sledujúcich.")
             }
         } catch (ex: IOException) {
             ex.printStackTrace()
-            onError("Failed to load bars, check internet connection")
+            onError("Zlyhalo načítanie sledujúcich. Skontrolujte internetové pripojenie.")
         } catch (ex: Exception) {
             ex.printStackTrace()
-            onError("Failed to load bars, error.")
+            onError("Error: Zlyhanie načítania sledujúcich.")
         }
         return friends
     }
@@ -276,16 +275,16 @@ class Repository private constructor(
                 response.body()?.let { myFriends ->
                     myFriendDao.deleteMyFriends()
                     myFriendDao.insertMyFriends(myFriends.asEntityModelList())
-                } ?: onError("Failed to load friends")
+                } ?: onError("Zlyhalo načítanie priateľov.")
             } else {
-                onError("Failed to read friends")
+                onError("Chyba pri čítaní priateľov.")
             }
         } catch (ex: IOException) {
             ex.printStackTrace()
-            onError("Failed to load friends, check internet connection")
+            onError("Zlyhalo načítanie priateľov. Skontrolujte internetové pripojenie.")
         } catch (ex: Exception) {
             ex.printStackTrace()
-            onError("Failed to load friends, error.")
+            onError("Error: Zlyhanie načítania priateľov.")
         }
     }
 

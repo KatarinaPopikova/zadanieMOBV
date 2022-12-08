@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Zadanie</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_data">Zadať prihlasovacie údaje</string>
     <string name="register_data">Zadať údaje pre registráciu</string>
@@ -45,5 +44,14 @@
     <string name="distance">Vzdialenosť</string>
     <string name="delete_friend">Vymazať priateľa</string>
     <string name="friends_count">Počet návštevníkov</string>
+    <string name="geofence_added">Geofence bolo úspešne pridané.</string>
+    <string name="geofence_failed">Zlyhanie vytvorenia Geofence.</string>
+    <string name="geofence_background">Vyžaduje sa pozadie lokácie</string>
+    <string name="allow_location">Povoliť polohu na pozadí (všetky časy) na zistenie, kedy opustíte bar.</string>
+    <string name="geofence_failed_permissions">Geofence zlyhal, povolenia neboli udelené.</string>
+    <string name="background_location_access_denied">pozadie lokácie zamietnuté</string>
+    <string name="access_location_denied">Prístup k lokácii zamietnutý.</string>
+    <string name="access_approximate_location">Prístup iba k približnej polohe</string>
+    <string name="fill_friend_name">Vyplňte meno priateľa.</string>
 
 </resources>

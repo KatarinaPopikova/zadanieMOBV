@@ -16,7 +16,7 @@ class TagBarsViewModel(private val repository: Repository) : ViewModel() {
     val myLocation = MutableLiveData<MyLocation>(null)
     val myBar = MutableLiveData<Bar>(null)
 
-    private val _checkedIn = MutableLiveData<Boolean>(false)
+    private val _checkedIn = MutableLiveData(false)
     val checkedIn: LiveData<Boolean>
         get() = _checkedIn
 

@@ -44,11 +44,11 @@ class BarsListFragment : Fragment() {
                 // Precise location access granted.
             }
             permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                showShortMessage("Only approximate location access granted.")
+                showShortMessage(getString(R.string.access_approximate_location))
                 // Only approximate location access granted.
             }
             else -> {
-                showShortMessage("Location access denied.")
+                showShortMessage(getString(R.string.access_location_denied))
                 // No location access granted.
             }
         }
@@ -203,17 +203,17 @@ class BarsListFragment : Fragment() {
         findNavController().navigate(R.id.action_barsListFragment_to_myFriendsListFragment)
     }
 
-    fun goToBarDetailScreen(barId: Long) {
+    private fun goToBarDetailScreen(barId: Long) {
         findNavController().navigate(
             BarsListFragmentDirections.actionBarsListFragmentToBarDetailFragment(barId)
         )
     }
 
-    fun goToTagBarsListScreen() {
+    private fun goToTagBarsListScreen() {
         findNavController().navigate(R.id.action_barsListFragment_to_tagBarsListFragment)
     }
 
-    fun goToLoginScreen() {
+    private fun goToLoginScreen() {
         findNavController().navigate(R.id.action_barsListFragment_to_loginFragment)
     }
 

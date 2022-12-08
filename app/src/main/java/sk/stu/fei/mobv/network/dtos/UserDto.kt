@@ -1,7 +1,6 @@
 package sk.stu.fei.mobv.network.dtos
 
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import sk.stu.fei.mobv.domain.User
 
 data class UserDto(

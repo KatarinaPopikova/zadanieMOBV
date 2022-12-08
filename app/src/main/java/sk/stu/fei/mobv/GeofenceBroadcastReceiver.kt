@@ -16,7 +16,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         val geofencingEvent = intent?.let { GeofencingEvent.fromIntent(it) }
         if (geofencingEvent != null) {
             if (geofencingEvent.hasError()) {
-                val errorMessage = GeofenceStatusCodes
+                GeofenceStatusCodes
                     .getStatusCodeString(geofencingEvent.errorCode)
                 return
             }

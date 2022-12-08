@@ -4,7 +4,6 @@ import android.Manifest
 import android.animation.Animator
 import android.annotation.SuppressLint
 import android.app.PendingIntent
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -47,7 +46,7 @@ class TagBarsListFragment : Fragment() {
                 // Precise location access granted.
             }
             else -> {
-                showShortMessage("Background location access denied.")
+                showShortMessage(getString(R.string.background_location_access_denied))
                 // No location access granted.
             }
         }
@@ -188,7 +187,7 @@ class TagBarsListFragment : Fragment() {
     @SuppressLint("MissingPermission")
     private fun createFence(lat: Double, lon: Double) {
         if (!checkPermissions()) {
-            showShortMessage("Geofence failed, permissions not granted.")
+            showShortMessage(getString(R.string.geofence_failed_permissions))
         }
         val geofenceIntent = PendingIntent.getBroadcast(
             requireContext(), 0,
@@ -209,11 +208,10 @@ class TagBarsListFragment : Fragment() {
 
         geofencingClient.addGeofences(request, geofenceIntent).run {
             addOnSuccessListener {
-                // TODO
-                showShortMessage("Geofence successfully to create.")
+                showShortMessage(getString(R.string.geofence_added))
             }
             addOnFailureListener {
-                showShortMessage("Geofence failed to create.") //permission is not granted for All times.
+                showShortMessage(getString(R.string.geofence_failed))
                 it.printStackTrace()
             }
         }
@@ -224,22 +222,20 @@ class TagBarsListFragment : Fragment() {
         val alertDialog: AlertDialog = requireActivity().let {
             val builder = AlertDialog.Builder(it)
             builder.apply {
-                setTitle("Background location needed")
-                setMessage("Allow background location (All times) for detecting when you leave bar.")
-                setPositiveButton("OK",
-                    DialogInterface.OnClickListener { _, _ ->
-                        locationPermissionRequest.launch(
-                            arrayOf(
-                                Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                            )
+                setTitle(getString(R.string.geofence_background))
+                setMessage(getString(R.string.allow_location))
+                setPositiveButton("OK"
+                ) { _, _ ->
+                    locationPermissionRequest.launch(
+                        arrayOf(
+                            Manifest.permission.ACCESS_BACKGROUND_LOCATION
                         )
-                    })
-                setNegativeButton("Cancel",
-                    DialogInterface.OnClickListener { _, _ ->
-                        // User cancelled the dialog
-                    })
+                    )
+                }
+                setNegativeButton("Cancel"
+                ) { _, _ ->
+                }
             }
-            // Create the AlertDialog
             builder.create()
         }
         alertDialog.show()

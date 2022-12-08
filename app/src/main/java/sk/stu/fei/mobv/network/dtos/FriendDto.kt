@@ -1,7 +1,6 @@
 package sk.stu.fei.mobv.network.dtos
 
 import com.squareup.moshi.Json
-import sk.stu.fei.mobv.database.entities.BarEntity
 import sk.stu.fei.mobv.database.entities.MyFriendEntity
 import sk.stu.fei.mobv.domain.Friend
 

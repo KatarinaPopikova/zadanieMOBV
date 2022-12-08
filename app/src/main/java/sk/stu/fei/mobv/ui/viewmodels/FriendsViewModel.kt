@@ -7,7 +7,7 @@ import sk.stu.fei.mobv.repository.Repository
 
 class FriendsViewModel(private val repository: Repository) : ViewModel() {
     private val _message = MutableLiveData<String>()
-    val message: LiveData<String>
+    val message: MutableLiveData<String>
         get() = _message
 
     val loading = MutableLiveData(false)
@@ -24,23 +24,23 @@ class FriendsViewModel(private val repository: Repository) : ViewModel() {
         }
 
     fun addFriend(friendName: String) {
-        loading.postValue(true)
         viewModelScope.launch {
+            loading.postValue(true)
             repository.addFriend(friendName,
                 { _message.postValue(it) },
                 { _message.postValue(it) })
+            loading.postValue(false)
         }
-        loading.postValue(false)
     }
 
     fun deleteFriend(myFriend: Friend) {
-        loading.postValue(true)
         viewModelScope.launch {
+            loading.postValue(true)
             repository.deleteMyFriend(myFriend,
                 { _message.postValue(it) },
                 { _message.postValue(it) })
+            loading.postValue(false)
         }
-        loading.postValue(false)
     }
 
     fun loadFriends() {
