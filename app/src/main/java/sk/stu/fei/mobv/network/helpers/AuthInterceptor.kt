@@ -1,4 +1,4 @@
-package com.example.zadanie.data.api.helper
+package sk.stu.fei.mobv.network.helpers
 
 import android.content.Context
 import okhttp3.Interceptor

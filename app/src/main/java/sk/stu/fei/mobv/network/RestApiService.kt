@@ -1,7 +1,7 @@
 package sk.stu.fei.mobv.network
 
 import android.content.Context
-import com.example.zadanie.data.api.helper.AuthInterceptor
+import sk.stu.fei.mobv.network.helpers.AuthInterceptor
 import sk.stu.fei.mobv.network.helpers.TokenAuthenticator
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

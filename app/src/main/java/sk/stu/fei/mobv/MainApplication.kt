@@ -7,6 +7,6 @@ import sk.stu.fei.mobv.repository.Repository
 
 class MainApplication : Application(){
     val database: AppDatabase by lazy { AppDatabase.getDatabase(this) }
-    val restApiService: RestApiService by lazy { RestApiService.create(this) }
+    private val restApiService: RestApiService by lazy { RestApiService.create(this) }
     val repository by lazy { Repository.getInstance(restApiService, database.barDao(), database.myFriendDao()) }
 }
