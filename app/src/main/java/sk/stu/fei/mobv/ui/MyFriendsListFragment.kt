@@ -71,7 +71,7 @@ class MyFriendsListFragment : Fragment() {
         }.apply {
             friendsListView.adapter = FriendsListItemAdapter(
                 FriendsListItemEventListener (
-                    { _: Long? -> },
+                    { },
                     {
                         friendsViewModel!!.deleteFriend(it)
                     }
